@@ -1,0 +1,449 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="OpenAndSelectProject"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:ss="clr-namespace:System.Security;assembly=mscorlib"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_ConnStr" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_Query" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_TransactionItem" Type="InArgument(sd:DataRow)" />
+    <x:Property Name="out_IsNewContract" Type="OutArgument(x:Boolean)" />
+    <x:Property Name="io_StatusMsg" Type="InOutArgument(scg:Dictionary(x:String, x:String))" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>Sample1_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
+      <AssemblyReference>System.Data.Entity</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="공사개요를 업데이트 한다. &#xA;크게 3개의 계약체결 방식( 장기계속, 계속비, 일반)에 대해서 처리하며&#xA;장기계속의 경우 신규차수 생성 혹은 기존차수 변경에 대해서 처리한다. &#xA;&#xA;Orchestrator로 부터 KISCON_사용자ID 형태의 Credential을 얻어오며 이것으로 로그인을 수행한다. &#xA;&#xA;Input &#xA;  - in_Config: Dictionary&lt;String,Object&gt; - 설정정보 맵 &#xA;  - in_ConnStr: Dictionary&lt;String, Object&gt; - DB연결정보 맵&#xA;  - in_Query: Dictionary&lt;String, Object&gt; - 질의문 맵 &#xA;  - in_TransactionItem : DataRow - 처리해야할 데이터 &#xA;&#xA;Input/Output&#xA;  - io_StatusMsg: Dictionary&lt;String,String&gt; - 진행상태 맵 &#xA;&#xA;Output&#xA;  - out_IsNewContract: Boolean - 신규차수 계약인지 여부 &#xA;" DisplayName="OpenAndSelectProject " sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="ss:SecureString" Name="Password" />
+      <Variable x:TypeArguments="x:String" Name="Username" />
+      <Variable x:TypeArguments="x:String" Name="ContractName" />
+      <Variable x:TypeArguments="x:String" Name="LastSeq" />
+      <Variable x:TypeArguments="ui:GenericValue" Name="ContractType" />
+      <Variable x:TypeArguments="x:String" Name="StatusMsg" />
+    </Sequence.Variables>
+    <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="[String.Format( &quot;KISCON_{0}&quot;, in_TransactionItem(&quot;KISCON_ID&quot;).ToString)]" DisplayName="Get Credential" sap2010:WorkflowViewState.IdRef="GetRobotCredential_1" Password="[Password]" Username="[Username]" />
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Open workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="KISCON\Open.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_Url">[in_Config("KisconUrl").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_Username">[Username]</InArgument>
+        <InArgument x:TypeArguments="ss:SecureString" x:Key="in_Password">[Password]</InArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <Assign DisplayName="Assign - 기본 이름 (차수 정보 없는거)" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[ContractName]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[in_TransactionItem("기본계약명").ToString]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke CheckContractSeq workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="KISCON\CheckContractSeq.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_LastContractSeq">[LastSeq]</OutArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_ContractName">[ContractName]</InArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <Assign DisplayName="Assign - 계약체결방식 " sap2010:WorkflowViewState.IdRef="Assign_2">
+      <Assign.To>
+        <OutArgument x:TypeArguments="ui:GenericValue">[ContractType]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="ui:GenericValue">[in_TransactionItem("계약체결방식").ToString.Trim]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[ContractType]" sap2010:WorkflowViewState.IdRef="Switch`1_1">
+      <Sequence x:Key="장기계속" DisplayName="Sequence - 장기계속 공사 " sap2010:WorkflowViewState.IdRef="Sequence_7">
+        <If Condition="[Integer.Parse( in_TransactionItem(&quot;계약차수&quot;).ToString) &lt;= Integer.Parse( LastSeq)]" DisplayName="If - 차수 변경인지 파악 " sap2010:WorkflowViewState.IdRef="If_1">
+          <If.Then>
+            <Sequence DisplayName="Sequence - 기존차수 변경 " sap2010:WorkflowViewState.IdRef="Sequence_2">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="x:String" Default="201300010" Name="ProjectCD" />
+              </Sequence.Variables>
+              <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[String.Format(&quot;공사명: {0}# 기준 차수 변경입니다. &quot;, ContractName)]" />
+              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke SelectProject workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="KISCON\SelectProject.xaml">
+                <ui:InvokeWorkflowFile.Arguments>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_ContractSeq">[in_TransactionItem("계약차수").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_ContractType">[ContractType]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_ContractName">[ContractName]</InArgument>
+                </ui:InvokeWorkflowFile.Arguments>
+              </ui:InvokeWorkflowFile>
+              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke UpdateProjectOverview workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="KISCON\UpdateProjectOverview.xaml">
+                <ui:InvokeWorkflowFile.Arguments>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_StartDate">[in_TransactionItem("착공년월일").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_CompleteDate">[in_TransactionItem("준공년월일").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_ContractAmount">[in_TransactionItem("총도급금액").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_UpdateDate">[in_TransactionItem("수정일").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_AgreedDate">[in_TransactionItem("계약년월일").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_FirstTotalAmount">[in_TransactionItem("총공사부기금").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_FirstStartDate">[in_TransactionItem("최초착공년월일").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_FirstCompleteDate">[in_TransactionItem("최종준공년월일").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_ContractType">[ContractType]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_ContractName">[ContractName]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_ContractSeq">[in_TransactionItem("계약차수").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:Boolean" x:Key="in_IsNewContract">False</InArgument>
+                  <OutArgument x:TypeArguments="x:String" x:Key="out_StatusMsg">[StatusMsg]</OutArgument>
+                </ui:InvokeWorkflowFile.Arguments>
+              </ui:InvokeWorkflowFile>
+              <Assign DisplayName="Assign - 기존 차수 변경 " sap2010:WorkflowViewState.IdRef="Assign_7">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[io_StatusMsg("STATUS")]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">기존 차수 변경</InArgument>
+                </Assign.Value>
+              </Assign>
+              <Assign DisplayName="Assign - 변경 사항 입력 " sap2010:WorkflowViewState.IdRef="Assign_12">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[io_StatusMsg("change")]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[StatusMsg]</InArgument>
+                </Assign.Value>
+              </Assign>
+            </Sequence>
+          </If.Then>
+          <If.Else>
+            <If Condition="[Integer.Parse( LastSeq) + 1 =  Integer.Parse( in_TransactionItem(&quot;계약차수&quot;).ToString)]" DisplayName="If - 신규 차수 인지 파악 " sap2010:WorkflowViewState.IdRef="If_2">
+              <If.Then>
+                <Sequence DisplayName="Sequence - 신규차수 계약 " sap2010:WorkflowViewState.IdRef="Sequence_3">
+                  <Assign DisplayName="Assign - 새로운 차수 입력 " sap2010:WorkflowViewState.IdRef="Assign_3">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Boolean">[out_IsNewContract]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke AddContractSeq workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="KISCON\AddContractSeq.xaml">
+                    <ui:InvokeWorkflowFile.Arguments>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_ContractSeq">[in_TransactionItem("계약차수").ToString]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_ContractName">[ContractName]</InArgument>
+                    </ui:InvokeWorkflowFile.Arguments>
+                  </ui:InvokeWorkflowFile>
+                  <Delay mva:VisualBasic.Settings="{x:Null}" DisplayName="Delay 1 second" Duration="00:00:01" sap2010:WorkflowViewState.IdRef="Delay_1">
+                    <TextExpression.Namespaces>
+                      <sco:Collection x:TypeArguments="x:String">
+                        <x:String>System.Activities</x:String>
+                        <x:String>System.Activities.Statements</x:String>
+                        <x:String>System.Activities.Expressions</x:String>
+                        <x:String>System.Activities.Validation</x:String>
+                        <x:String>System.Activities.XamlIntegration</x:String>
+                        <x:String>Microsoft.VisualBasic.Activities</x:String>
+                        <x:String>System</x:String>
+                        <x:String>System.Collections.Generic</x:String>
+                        <x:String>System.Data</x:String>
+                        <x:String>System.Diagnostics</x:String>
+                        <x:String>System.IO</x:String>
+                        <x:String>System.Linq</x:String>
+                        <x:String>System.Management.Automation</x:String>
+                        <x:String>System.Net.Mail</x:String>
+                        <x:String>System.Xml</x:String>
+                        <x:String>System.Xml.Linq</x:String>
+                        <x:String>UiPath.Library</x:String>
+                        <x:String>System.Windows.Markup</x:String>
+                      </sco:Collection>
+                    </TextExpression.Namespaces>
+                    <TextExpression.References>
+                      <sco:Collection x:TypeArguments="AssemblyReference">
+                        <AssemblyReference>System.Activities</AssemblyReference>
+                        <AssemblyReference>mscorlib</AssemblyReference>
+                        <AssemblyReference>System.Data</AssemblyReference>
+                        <AssemblyReference>System</AssemblyReference>
+                        <AssemblyReference>System.Core</AssemblyReference>
+                        <AssemblyReference>System.Management.Automation</AssemblyReference>
+                        <AssemblyReference>System.Xml</AssemblyReference>
+                        <AssemblyReference>System.Xml.Linq</AssemblyReference>
+                        <AssemblyReference>UiPath.Library</AssemblyReference>
+                        <AssemblyReference>PresentationFramework</AssemblyReference>
+                        <AssemblyReference>WindowsBase</AssemblyReference>
+                        <AssemblyReference>PresentationCore</AssemblyReference>
+                        <AssemblyReference>System.Xaml</AssemblyReference>
+                      </sco:Collection>
+                    </TextExpression.References>
+                  </Delay>
+                  <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke UpdateProjectOverview workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="KISCON\UpdateProjectOverview.xaml">
+                    <ui:InvokeWorkflowFile.Arguments>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_StartDate">[in_TransactionItem("착공년월일").ToString]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_CompleteDate">[in_TransactionItem("준공년월일").ToString]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_ContractAmount">[in_TransactionItem("총도급금액").ToString]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_UpdateDate">[in_TransactionItem("수정일").ToString]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_AgreedDate">[in_TransactionItem("계약년월일").ToString]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_FirstTotalAmount">[in_TransactionItem("총공사부기금").ToString]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_FirstStartDate">[in_TransactionItem("최초착공년월일").ToString]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_FirstCompleteDate">[in_TransactionItem("최종준공년월일").ToString]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_ContractType">[ContractType]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_ContractName">[ContractName]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_ContractSeq">[in_TransactionItem("계약차수").ToString]</InArgument>
+                      <InArgument x:TypeArguments="x:Boolean" x:Key="in_IsNewContract">False</InArgument>
+                      <OutArgument x:TypeArguments="x:String" x:Key="out_StatusMsg">[StatusMsg]</OutArgument>
+                    </ui:InvokeWorkflowFile.Arguments>
+                  </ui:InvokeWorkflowFile>
+                  <Assign DisplayName="Assign - 신규 차수 추가 " sap2010:WorkflowViewState.IdRef="Assign_5">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[io_StatusMsg("STATUS")]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">신규 차수 계약</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Assign - 변경 사항 입력 " sap2010:WorkflowViewState.IdRef="Assign_13">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[io_StatusMsg("change")]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[StatusMsg]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                </Sequence>
+              </If.Then>
+              <If.Else>
+                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_6">
+                  <Assign sap2010:WorkflowViewState.IdRef="Assign_4">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[io_StatusMsg("MESSAGE")]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String" xml:space="preserve">처리할수 없는 변경차수가 있음 </InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign sap2010:WorkflowViewState.IdRef="Assign_14">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[io_StatusMsg("STATUS")]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">오류</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;처리할수 없는 변경 차수 가 있음을 담당자에게 메일 발송 필요 &quot;]" />
+                </Sequence>
+              </If.Else>
+            </If>
+          </If.Else>
+        </If>
+      </Sequence>
+      <Sequence x:Key="계속비" DisplayName="Sequence - 계속비 공사 " sap2010:WorkflowViewState.IdRef="Sequence_4">
+        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke SelectProject workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" UnSafe="False" WorkflowFileName="KISCON\SelectProject.xaml">
+          <ui:InvokeWorkflowFile.Arguments>
+            <InArgument x:TypeArguments="x:String" x:Key="in_ContractSeq">[in_TransactionItem("계약차수").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_ContractType">[ContractType]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_ContractName">[ContractName]</InArgument>
+          </ui:InvokeWorkflowFile.Arguments>
+        </ui:InvokeWorkflowFile>
+        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke UpdateProjectOverview workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_8" UnSafe="False" WorkflowFileName="KISCON\UpdateProjectOverview.xaml">
+          <ui:InvokeWorkflowFile.Arguments>
+            <InArgument x:TypeArguments="x:String" x:Key="in_StartDate">[in_TransactionItem("착공년월일").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_CompleteDate">[in_TransactionItem("준공년월일").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_ContractAmount">[in_TransactionItem("총도급금액").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_UpdateDate">[in_TransactionItem("수정일").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_AgreedDate">[in_TransactionItem("계약년월일").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_FirstTotalAmount">[in_TransactionItem("총공사부기금").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_FirstStartDate">[in_TransactionItem("최초착공년월일").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_FirstCompleteDate">[in_TransactionItem("최종준공년월일").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_ContractType">[ContractType]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_ContractName">[ContractName]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_ContractSeq">[in_TransactionItem("계약차수").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:Boolean" x:Key="in_IsNewContract">False</InArgument>
+            <OutArgument x:TypeArguments="x:String" x:Key="out_StatusMsg">[StatusMsg]</OutArgument>
+          </ui:InvokeWorkflowFile.Arguments>
+        </ui:InvokeWorkflowFile>
+        <Assign DisplayName="Assign - 변경사항 입력 " sap2010:WorkflowViewState.IdRef="Assign_10">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">[io_StatusMsg("change")]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">[StatusMsg]</InArgument>
+          </Assign.Value>
+        </Assign>
+      </Sequence>
+      <Sequence x:Key="일반" DisplayName="Sequence - 일반 공사 " sap2010:WorkflowViewState.IdRef="Sequence_5">
+        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke SelectProject workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_9" UnSafe="False" WorkflowFileName="KISCON\SelectProject.xaml">
+          <ui:InvokeWorkflowFile.Arguments>
+            <InArgument x:TypeArguments="x:String" x:Key="in_ContractSeq">[in_TransactionItem("계약차수").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_ContractType">[ContractType]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_ContractName">[ContractName]</InArgument>
+          </ui:InvokeWorkflowFile.Arguments>
+        </ui:InvokeWorkflowFile>
+        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke UpdateProjectOverview workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_10" UnSafe="False" WorkflowFileName="KISCON\UpdateProjectOverview.xaml">
+          <ui:InvokeWorkflowFile.Arguments>
+            <InArgument x:TypeArguments="x:String" x:Key="in_StartDate">[in_TransactionItem("착공년월일").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_CompleteDate">[in_TransactionItem("준공년월일").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_ContractAmount">[in_TransactionItem("총도급금액").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_UpdateDate">[in_TransactionItem("수정일").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_AgreedDate">[in_TransactionItem("계약년월일").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_FirstTotalAmount">[in_TransactionItem("총공사부기금").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_FirstStartDate">[in_TransactionItem("최초착공년월일").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_FirstCompleteDate">[in_TransactionItem("최종준공년월일").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_ContractType">[ContractType]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_ContractName">[ContractName]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_ContractSeq">[in_TransactionItem("계약차수").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:Boolean" x:Key="in_IsNewContract">False</InArgument>
+            <OutArgument x:TypeArguments="x:String" x:Key="out_StatusMsg">[StatusMsg]</OutArgument>
+          </ui:InvokeWorkflowFile.Arguments>
+        </ui:InvokeWorkflowFile>
+        <Assign DisplayName="Assign - 변경사항 입력 " sap2010:WorkflowViewState.IdRef="Assign_11">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">[io_StatusMsg("change")]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">[StatusMsg]</InArgument>
+          </Assign.Value>
+        </Assign>
+      </Sequence>
+    </Switch>
+    <sads:DebugSymbol.Symbol>d1NDOlxVc2Vyc1xoeXVuZ3Nvb1xXb3Jrc3BhY2VzXERvb3NhblxLSVNDT05fVXBkYXRlclxLSVNDT05cT3BlbkFuZFNlbGVjdFByb2plY3QueGFtbJABTwPmAg4CAQFYBVicAgMBrwFZBV8dAwGnAWAFZw4DAaMBaAVtHQMBnQFuBXUOAwGZAXYF5AIOAgECWDtYmQEDAbQBWI0CWJkCAwGyAVj3AViDAgMBsAFcRFxOAwGtAVs/W2ADAasBWbEBWcMBAwGqAV1LXVUDAagBZTBlVgMBpgFiMWI/AwGkAWtIa1YDAaEBak1qVgMBnwFovQFo2wEDAZ4BczdzYwMBnAFwOHBGAwGaAXZIdlgCAQN3B58CEgIBPqACB8ECEgIBIcICB+MCEgIBBHgJngIOAgE/oQIJpwIhAgE4qAIJuAIhAgEnuQIJwAISAgEiwwIJyQIhAgEbygIJ2gIhAgEK2wIJ4gISAgEFeBd4dgIBQHoNpwEYAgF0qgENnAISAgFBpQJMpQJaAgE8owJLowJwAgE7pAJMpAJaAgE6oQK+AaEC2QECATmwAk6wAnYCATezAkyzAloCATW2Aku2AlYCATO0Aku0AnACATK1Ak61AlMCATGtAkqtAm4CATCrAkyrAnICAS+yAkyyAloCAS6qAkmqAm8CAS2xAlGxAnkCASyuAkquAnACASusAk6sAnQCASqvAlCvAncCASmoAsYBqALpAQIBKL4CNL4CPwIBJbsCNbsCTQIBI8cCTMcCWgIBH8UCS8UCcAIBHsYCTMYCWgIBHcMCvgHDAtkBAgEc0gJO0gJ2AgEa1QJM1QJaAgEY2AJL2AJWAgEW1gJL1gJwAgEV1wJO1wJTAgEUzwJKzwJuAgETzQJMzQJyAgES1AJM1AJaAgERzAJJzAJvAgEQ0wJR0wJ5AgEP0AJK0AJwAgEOzgJOzgJ0AgEN0QJQ0QJ3AgEMygLHAcoC6gECAQvgAjTgAj8CAQjdAjXdAk0CAQZ8PnxJAgF1fg9+wwEDAZYBfw+FAScDAZABhgEPlgEnAgF/lwEPngEYAgF7nwEPpgEYAgF2qgEbqgF7AgFCrAERhQIcAgFOiAIRmgIcAgFDfnx+wAEDAZcBgwFSgwFgAwGUAYEBUYEBdgMBkwGCAVKCAWADAZIBf8QBf98BAwGRAY4BVI4BfAMBjwGRAVKRAWADAY0BlAFRlAFcAwGLAZIBUZIBdgMBigGTAVSTAVkDAYkBiwFQiwF0AwGIAYkBUokBeAMBhwGQAVKQAWADAYYBiAFPiAF1AwGFAY8BV48BfwMBhAGMAVCMAXYDAYMBigFUigF6AwGCAY0BVo0BfQMBgQGGAcwBhgHvAQMBgAGcATqcAUICAX6ZATuZAVMCAXykATqkAUUCAXmhATuhAVMCAXetARO0ARwCAXC1ARO6ASsCAWu7ARPjARsCAWnkARP0ASsCAVj1ARP8ARwCAVT9AROEAhwCAU+JAhOQAhwCAUqRAhOYAhwCAUaZAhOZArYBAgFEsgE/sgFDAgFzrwFArwFTAgFxuAFWuAFkAgFutwFVtwF6AgFttQHJAbUB5QECAWy7AWS7AW4CAWrsAVjsAYABAgFo7wFW7wFkAgFm8gFV8gFgAgFk8AFV8AF6AgFj8QFY8QFdAgFi6QFU6QF4AgFh5wFW5wF8AgFg7gFW7gFkAgFf5gFT5gF5AgFe7QFb7QGDAQIBXeoBVOoBegIBXOgBWOgBfgIBW+sBWusBgQECAVrkAdAB5AHzAQIBWfoBPvoBRgIBV/cBP/cBVwIBVYICPoICSQIBUv8BP/8BVwIBUIsCP4sCWAIBS5YCPpYCQAIBSZMCP5MCVwIBR5kCgAGZArMBAgFF</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="GetRobotCredential_1" sap:VirtualizedContainerService.HintSize="477,22" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_1" sap:VirtualizedContainerService.HintSize="477,87" />
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="477,60" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_2" sap:VirtualizedContainerService.HintSize="477,87" />
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="477,60" />
+      <sap2010:ViewStateData Id="LogMessage_2" sap:VirtualizedContainerService.HintSize="314,91" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_3" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_4" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="Assign_7" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="Assign_12" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="336,669">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_5" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="Delay_1" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_6" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="Assign_5" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="Assign_13" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="336,700">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_4" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="Assign_14" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="LogMessage_1" sap:VirtualizedContainerService.HintSize="314,91" />
+      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="336,415">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="697,848" />
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="1058,996">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_7" sap:VirtualizedContainerService.HintSize="1080,1120">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_7" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_8" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="Assign_10" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="336,438">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_9" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_10" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="Assign_11" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="336,438">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Switch`1_1" sap:VirtualizedContainerService.HintSize="477,666" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="499,1603">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sample1_1" sap:VirtualizedContainerService.HintSize="539,1683" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

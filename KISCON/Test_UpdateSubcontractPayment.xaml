@@ -1,0 +1,136 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="Test_UpdateSubcontractPayment" mva:VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="Test_UpdateSubcontractPayment_1"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Data.Entity</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Test_UpdateSubcontractPayment" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="scg:Dictionary(x:String, x:Object)" Name="Config" />
+      <Variable x:TypeArguments="scg:Dictionary(x:String, x:Object)" Name="Query" />
+      <Variable x:TypeArguments="scg:Dictionary(x:String, x:Object)" Name="ConnStr" />
+      <Variable x:TypeArguments="sd:DataTable" Name="DT" />
+      <Variable x:TypeArguments="x:String" Name="Msg1" />
+      <Variable x:TypeArguments="x:String" Name="Msg2" />
+      <Variable x:TypeArguments="scg:List(x:String)" Name="ErrorList" />
+      <Variable x:TypeArguments="sd:DataTable" Name="KisconDB" />
+    </Sequence.Variables>
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke InitAllSettings workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Framework\InitAllSettings.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_ConfigFile">Data\Config.xlsx</InArgument>
+        <InArgument x:TypeArguments="s:String[]" x:Key="in_ConfigSheets">[{"Settings", "Constants" }]</InArgument>
+        <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="out_Config">[Config]</OutArgument>
+        <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="out_Query">[Query]</OutArgument>
+        <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="out_ConnStr">[ConnStr]</OutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke GetSubcontractPayment1 workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Custom\GetSubcontractPayment1.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_ConnStr">[ConnStr("GetSubcontractPayment1").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_Query">[Query("GetSubcontractPayment1").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_ProjectCode">201800046</InArgument>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_PaymentDT">[DT]</OutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke GetSubcontractPayment1 workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Custom\GetSubcontractPayment2.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_ConnStr">[ConnStr("GetSubcontractPayment1").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_Query">[Query("GetSubcontractPayment1").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_ProjectCode">201800046</InArgument>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_PaymentDT">[DT]</OutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:ReadRange AddHeaders="True" DataTable="[KisconDB]" DisplayName="Read Range" SheetName="Sheet1" WorkbookPath="Data\TempSubCompanies.xlsx">
+      <ui:ReadRange.Range>
+        <InArgument x:TypeArguments="x:String">
+          <Literal x:TypeArguments="x:String" Value="" />
+        </InArgument>
+      </ui:ReadRange.Range>
+      <sap2010:WorkflowViewState.IdRef>ReadRange_1</sap2010:WorkflowViewState.IdRef>
+    </ui:ReadRange>
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke UpdateSubcontractPayment workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="KISCON\UpdateSubcontractPayment.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_Payments">[DT]</InArgument>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_Contracts">[KisconDB]</InArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_StatusMsg1">[Msg1]</OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_StatusMsg2">[Msg2]</OutArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_BaseRefDate">2019-01-01</InArgument>
+        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_ConnStrDict">[ConnStr]</InArgument>
+        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_QueryDict">[Query]</InArgument>
+        <OutArgument x:TypeArguments="scg:List(x:String)" x:Key="out_ErrorList">[ErrorList]</OutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <sads:DebugSymbol.Symbol>d1FDOlxVc2Vyc1xib3QwMlxXb3Jrc3BhY2VcS2lzY29uX1VwZGF0ZXJcS0lTQ09OXFRlc3RfVXBkYXRlU3ViY29udHJhY3RQYXltZW50LnhhbWwjPQN2DgIBAUgFUB0CAStRBVgdAgEiWQVgHQIBGWEFaBQCARNpBXQdAgECTV1NZAIBM0xeTGYCATFOX05oAgEvSLwBSNwBAgEuS0pLZgIBLUpGSlYCASxTQ1NvAgEpVUdVUAIBKFRBVGsCASZRwwFR5wECASVWS1ZPAgEjW0NbbwIBIF1HXVACAR9cQVxrAgEdWcMBWecBAgEcXkteTwIBGmEvYTsCARdkC2Q6AgEWYV9hZwIBFWF1YZEBAgEUa0hrTAIBEXFfcWYCAQ9yUXJcAgENbUhtTgIBC25Ibk4CAQlpxQFp6wECAQhsSWxTAgEGcGFwagIBBG9Hb1ECAQM=</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_1" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_2" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_3" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="ReadRange_1" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_4" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="336,719">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Test_UpdateSubcontractPayment_1" sap:VirtualizedContainerService.HintSize="376,839" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

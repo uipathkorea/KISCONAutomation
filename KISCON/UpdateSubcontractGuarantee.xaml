@@ -1,0 +1,814 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="UpdateSubcontractGuarantee"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_SubcontractInfo" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="in_ContractName" Type="InArgument(x:String)" />
+    <x:Property Name="out_StatusMsg" Type="OutArgument(x:String)" />
+    <x:Property Name="io_GntIssuers" Type="InOutArgument(scg:List(x:String))" />
+    <x:Property Name="io_Companies" Type="InOutArgument(scg:List(x:String))" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>UpdateSubcontractGuarantee_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>System.Data.Entity</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
+      <AssemblyReference>System.Collections.Immutable</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="하수급인 보증서 업데이트 철차 &#xA;발급업체 및 발급기관 리스트는 한번만 조회 하도록 input/output으로 사용함 &#xA;&#xA;Input &#xA;  - in_SubcontractInfo: DataTable - 하수급업체별 정보 &#xA;  - in_ContractName : String - 공사(계약) 명 &#xA;&#xA;Input/Output&#xA;  - io_GntIssuers: List&lt;String&gt; - 보증서발급 업체 리스트 &#xA;  - io_Companines: List&lt;String&gt; - 하도급업체 리스트 &#xA;&#xA;Output&#xA;  - out_StatusMsg: String - 보증서 등록 여부 " DisplayName="UpdateSubcontractGuarantee" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="s:DateTime" Name="CurTime" />
+    </Sequence.Variables>
+    <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="IE" DisplayName="Attach Browser  - CWS 건성공사정보시스템 연결 " sap2010:WorkflowViewState.IdRef="BrowserScope_1" InformativeScreenshot="ead346bac09dbcf8c3286b62b8ba4e60" Selector="&lt;html title='CWS 건설공사정보시스템' /&gt;">
+      <ui:BrowserScope.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do - 보증서 등록 " sap2010:WorkflowViewState.IdRef="Sequence_4">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="ui:UiElement" Name="GntSelectUI" />
+              <Variable x:TypeArguments="ui:UiElement" Name="CompSelecUI" />
+              <Variable x:TypeArguments="sd:DataTable" Name="ExistingGuarantees" />
+            </Sequence.Variables>
+            <Assign DisplayName="Assign - 해당탭 수행 시간 계산용 " sap2010:WorkflowViewState.IdRef="Assign_15">
+              <Assign.To>
+                <OutArgument x:TypeArguments="s:DateTime">[CurTime]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="s:DateTime">[DateTime.Now]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign DisplayName="Assign - 초기화 " sap2010:WorkflowViewState.IdRef="Assign_13">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[out_StatusMsg]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[String.Empty]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Sequence DisplayName="Sequence - 필요한 정보 추출 " sap2010:WorkflowViewState.IdRef="Sequence_2">
+              <Assign DisplayName="Assign - 테이블 초기화 " sap2010:WorkflowViewState.IdRef="Assign_7">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="sd:DataTable">[ExistingGuarantees]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="sd:DataTable">[Nothing]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <If Condition="[io_Companies.Count = 0]" DisplayName="If - 목록이 없는 경우만 조회해서 가져오기 " sap2010:WorkflowViewState.IdRef="If_5">
+                <If.Then>
+                  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_17">
+                    <Sequence.Variables>
+                      <Variable x:TypeArguments="scg:List(x:String)" Name="Companies" />
+                    </Sequence.Variables>
+                    <ui:WaitUiElementAppear DisplayName="Find Element - 대상업체 " FoundElement="[CompSelecUI]" sap2010:WorkflowViewState.IdRef="WaitUiElementAppear_1" WaitActive="False" WaitVisible="False">
+                      <ui:WaitUiElementAppear.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="6109ead03efe68245522e3cfa5a96955" Selector="&lt;webctrl id='ctl00_CPL1_sugubInfoList2' tag='SELECT' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:WaitUiElementAppear.Target>
+                    </ui:WaitUiElementAppear>
+                    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke GetSelectOptions workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="KISCON\GetSelectOptions.xaml">
+                      <ui:InvokeWorkflowFile.Arguments>
+                        <InArgument x:TypeArguments="ui:UiElement" x:Key="in_SelectElement">[CompSelecUI]</InArgument>
+                        <OutArgument x:TypeArguments="scg:List(x:String)" x:Key="out_Options">[Companies]</OutArgument>
+                      </ui:InvokeWorkflowFile.Arguments>
+                    </ui:InvokeWorkflowFile>
+                    <Assign DisplayName="Assign - 대상 업체리스트 정보 " sap2010:WorkflowViewState.IdRef="Assign_16">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="scg:List(x:String)">[io_Companies]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="scg:List(x:String)">[Companies]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                  </Sequence>
+                </If.Then>
+              </If>
+              <If Condition="[io_GntIssuers.Count = 0]" DisplayName="If - 목록이 없는 경우만 조회해서 가져오기 " sap2010:WorkflowViewState.IdRef="If_6">
+                <If.Then>
+                  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_18">
+                    <Sequence.Variables>
+                      <Variable x:TypeArguments="scg:List(x:String)" Name="Authorities" />
+                    </Sequence.Variables>
+                    <ui:WaitUiElementAppear DisplayName="Find Element - 보증서발급기관 " FoundElement="[GntSelectUI]" sap2010:WorkflowViewState.IdRef="WaitUiElementAppear_2" WaitActive="False" WaitVisible="False">
+                      <ui:WaitUiElementAppear.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="398a0ce62c9f15312f702878dc4ba550" Selector="&lt;webctrl id='ctl00_CPL1_organizationCodelist' tag='SELECT' /&gt;" WaitForReady="INTERACTIVE" />
+                      </ui:WaitUiElementAppear.Target>
+                    </ui:WaitUiElementAppear>
+                    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke GetSelectOptions workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="KISCON\GetSelectOptions.xaml">
+                      <ui:InvokeWorkflowFile.Arguments>
+                        <InArgument x:TypeArguments="ui:UiElement" x:Key="in_SelectElement">[GntSelectUI]</InArgument>
+                        <OutArgument x:TypeArguments="scg:List(x:String)" x:Key="out_Options">[Authorities]</OutArgument>
+                      </ui:InvokeWorkflowFile.Arguments>
+                    </ui:InvokeWorkflowFile>
+                    <Assign DisplayName="Assign - 발급기관 조회 " sap2010:WorkflowViewState.IdRef="Assign_17">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="scg:List(x:String)">[io_GntIssuers]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="scg:List(x:String)">[Authorities]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                  </Sequence>
+                </If.Then>
+              </If>
+              <ui:ExtractData NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExistingGuarantees]" DelayBetweenPagesMS="300" DisplayName="Extract Structured Data - 기존 목록 추출 " ExtractMetadata="&lt;extract-table get_columns_name='1' get_empty_columns='0' /&gt;" sap2010:WorkflowViewState.IdRef="ExtractData_6" MaxNumberOfResults="0">
+                <ui:ExtractData.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="352984c9148882926bd585a86d5cfeae" Selector="&lt;webctrl parentid='ctl00_CPL1_UpdatePanelgur1' tag='TABLE' /&gt;" WaitForReady="COMPLETE" />
+                </ui:ExtractData.Target>
+              </ui:ExtractData>
+              <If Condition="[ExistingGuarantees is Nothing Or ExistingGuarantees.Rows.Count = 0]" DisplayName="If - 데이터없는 경우 데이터 테이블 빌드해 줌 " sap2010:WorkflowViewState.IdRef="If_4">
+                <If.Then>
+                  <ui:BuildDataTable DataTable="[ExistingGuarantees]" DisplayName="Build Data Table" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;번호&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;보증채권자&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;발급업체&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;보증서번호_x0020_발급기관&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;발급일자&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;보증률_x0020_보증금액&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;보증서_x0020_보기&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+                </If.Then>
+              </If>
+            </Sequence>
+            <ui:CommentOut DisplayName="Comment Out" sap2010:WorkflowViewState.IdRef="CommentOut_2">
+              <ui:CommentOut.Body>
+                <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_20">
+                  <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Trace" Message="[String.Format(&quot;찾은 대상 업체 리스트 : {0}&quot;, String.Join(&quot;,&quot;, io_Companies))]" />
+                  <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Trace" Message="[String.Format(&quot;찾은 보증서 발급 기관 : {0}&quot;, String.Join(&quot;,&quot;, io_GntIssuers))]" />
+                </Sequence>
+              </ui:CommentOut.Body>
+            </ui:CommentOut>
+            <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each - 업체당 " sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[io_Companies]">
+              <ui:ForEach.Body>
+                <ActivityAction x:TypeArguments="x:String">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="x:String" Name="comp" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Body - 하수급인 업체별 " sap2010:WorkflowViewState.IdRef="Sequence_3">
+                    <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each - 보증기관 " sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[io_GntIssuers]">
+                      <ui:ForEach.Body>
+                        <ActivityAction x:TypeArguments="x:String">
+                          <ActivityAction.Argument>
+                            <DelegateInArgument x:TypeArguments="x:String" Name="auth" />
+                          </ActivityAction.Argument>
+                          <Sequence DisplayName="Body - 보증기관별 " sap2010:WorkflowViewState.IdRef="Sequence_5">
+                            <Sequence.Variables>
+                              <Variable x:TypeArguments="x:Boolean" Name="SearchDone" />
+                              <Variable x:TypeArguments="x:Int32" Name="SearchCount" />
+                              <Variable x:TypeArguments="sd:DataTable" Name="Gnts" />
+                            </Sequence.Variables>
+                            <DoWhile DisplayName="Do While" sap2010:WorkflowViewState.IdRef="DoWhile_2">
+                              <DoWhile.Variables>
+                                <Variable x:TypeArguments="x:Int32" Name="GntIndex" />
+                              </DoWhile.Variables>
+                              <DoWhile.Condition>[Gnts isNot Nothing AndAlso (Gnts.Rows.Count &lt;&gt; GntIndex)]</DoWhile.Condition>
+                              <Sequence DisplayName="Sequence - 검색 후 등록 " sap2010:WorkflowViewState.IdRef="Sequence_15">
+                                <ui:SelectItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Item - 대상업체 선택 " sap2010:WorkflowViewState.IdRef="SelectItem_1" Item="[comp]">
+                                  <ui:SelectItem.Items>
+                                    <scg:List x:TypeArguments="x:String" Capacity="8">
+                                      <x:String>선택하세요</x:String>
+                                      <x:String>----------</x:String>
+                                      <x:String>두산건설(주)</x:String>
+                                      <x:String>코오롱글로벌(주)</x:String>
+                                      <x:String>(주)한라</x:String>
+                                      <x:String>현대엔지니어링(주)</x:String>
+                                    </scg:List>
+                                  </ui:SelectItem.Items>
+                                  <ui:SelectItem.Target>
+                                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="e7ef15e748650692bac4a34fae21d4f8" Selector="&lt;webctrl id='ctl00_CPL1_sugubInfoList2' tag='SELECT' /&gt;" WaitForReady="COMPLETE" />
+                                  </ui:SelectItem.Target>
+                                </ui:SelectItem>
+                                <ui:SelectItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Item - 보증서 발급기관 선택" sap2010:WorkflowViewState.IdRef="SelectItem_2" Item="[auth]">
+                                  <ui:SelectItem.Items>
+                                    <scg:List x:TypeArguments="x:String" Capacity="8">
+                                      <x:String>선택하세요</x:String>
+                                      <x:String>-----------</x:String>
+                                      <x:String>서울보증</x:String>
+                                      <x:String>건설공제</x:String>
+                                      <x:String>전문공제</x:String>
+                                      <x:String>설비공제</x:String>
+                                      <x:String>주택도시보증공사</x:String>
+                                      <x:String>기타</x:String>
+                                    </scg:List>
+                                  </ui:SelectItem.Items>
+                                  <ui:SelectItem.Target>
+                                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="ddc8b638df02f8c5d18b28ca2dd61f03" Selector="&lt;webctrl id='ctl00_CPL1_organizationCodelist' tag='SELECT' /&gt;" WaitForReady="INTERACTIVE" />
+                                  </ui:SelectItem.Target>
+                                </ui:SelectItem>
+                                <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into - 공사명 입력 " EmptyField="True" sap2010:WorkflowViewState.IdRef="TypeInto_1" SendWindowMessages="False" SimulateType="True" Text="[in_ContractName]">
+                                  <ui:TypeInto.Target>
+                                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="f3ed0eecb557ac6e365fc6864582ccb5" Selector="&lt;webctrl id='ctl00_CPL1_txtGrnSubconName' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
+                                  </ui:TypeInto.Target>
+                                </ui:TypeInto>
+                                <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click - 조회버튼 선택 " sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                                  <ui:Click.CursorPosition>
+                                    <ui:CursorPosition Position="Center">
+                                      <ui:CursorPosition.OffsetX>
+                                        <InArgument x:TypeArguments="x:Int32" />
+                                      </ui:CursorPosition.OffsetX>
+                                      <ui:CursorPosition.OffsetY>
+                                        <InArgument x:TypeArguments="x:Int32" />
+                                      </ui:CursorPosition.OffsetY>
+                                    </ui:CursorPosition>
+                                  </ui:Click.CursorPosition>
+                                  <ui:Click.Target>
+                                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="4f73137444d42f591cd3006cf2a91c57" Selector="&lt;webctrl id='ctl00_CPL1_ImageButton1' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
+                                  </ui:Click.Target>
+                                </ui:Click>
+                                <Assign sap2010:WorkflowViewState.IdRef="Assign_1">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:Boolean">[SearchDone]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <Assign sap2010:WorkflowViewState.IdRef="Assign_2">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:Int32">[SearchCount]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:Int32">0</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <DoWhile DisplayName="Do While - 검색결과 대기 " sap2010:WorkflowViewState.IdRef="DoWhile_1">
+                                  <DoWhile.Variables>
+                                    <Variable x:TypeArguments="ui:Region" Name="SearchStatusRegion" />
+                                  </DoWhile.Variables>
+                                  <DoWhile.Condition>[Not SearchDone AndAlso SearchCount &lt;= 10]</DoWhile.Condition>
+                                  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_7">
+                                    <Assign sap2010:WorkflowViewState.IdRef="Assign_3">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="ui:Region">[SearchStatusRegion]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="ui:Region">[Nothing]</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                    <ui:GetAttribute Attribute="position" ContinueOnError="True" DisplayName="Get Attribute" sap2010:WorkflowViewState.IdRef="GetAttribute_1">
+                                      <ui:GetAttribute.Result>
+                                        <OutArgument x:TypeArguments="ui:Region">[SearchStatusRegion]</OutArgument>
+                                      </ui:GetAttribute.Result>
+                                      <ui:GetAttribute.Target>
+                                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="02c4822709f6a41780a4503246584dc4" Selector="&lt;webctrl id='ctl00_CPL1_UpdateProgress1' tag='DIV' /&gt;" WaitForReady="INTERACTIVE" />
+                                      </ui:GetAttribute.Target>
+                                    </ui:GetAttribute>
+                                    <If Condition="[SearchStatusRegion IsNot Nothing AndAlso SearchStatusRegion.Rectangle.Value.Width &lt;&gt; 0]" DisplayName="If - 폭이 없어 안보인다면 " sap2010:WorkflowViewState.IdRef="If_1">
+                                      <If.Then>
+                                        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_6">
+                                          <Delay mva:VisualBasic.Settings="{x:Null}" DisplayName="Delay 500 milliseconds" Duration="00:00:00.5000000">
+                                            <TextExpression.Namespaces>
+                                              <sco:Collection x:TypeArguments="x:String">
+                                                <x:String>System.Activities</x:String>
+                                                <x:String>System.Activities.Statements</x:String>
+                                                <x:String>System.Activities.Expressions</x:String>
+                                                <x:String>System.Activities.Validation</x:String>
+                                                <x:String>System.Activities.XamlIntegration</x:String>
+                                                <x:String>Microsoft.VisualBasic.Activities</x:String>
+                                                <x:String>System</x:String>
+                                                <x:String>System.Collections.Generic</x:String>
+                                                <x:String>System.Data</x:String>
+                                                <x:String>System.Diagnostics</x:String>
+                                                <x:String>System.IO</x:String>
+                                                <x:String>System.Linq</x:String>
+                                                <x:String>System.Management.Automation</x:String>
+                                                <x:String>System.Net.Mail</x:String>
+                                                <x:String>System.Xml</x:String>
+                                                <x:String>System.Xml.Linq</x:String>
+                                                <x:String>UiPath.Library</x:String>
+                                                <x:String>System.Windows.Markup</x:String>
+                                              </sco:Collection>
+                                            </TextExpression.Namespaces>
+                                            <TextExpression.References>
+                                              <sco:Collection x:TypeArguments="AssemblyReference">
+                                                <AssemblyReference>System.Activities</AssemblyReference>
+                                                <AssemblyReference>mscorlib</AssemblyReference>
+                                                <AssemblyReference>System.Data</AssemblyReference>
+                                                <AssemblyReference>System</AssemblyReference>
+                                                <AssemblyReference>System.Core</AssemblyReference>
+                                                <AssemblyReference>System.Management.Automation</AssemblyReference>
+                                                <AssemblyReference>System.Xml</AssemblyReference>
+                                                <AssemblyReference>System.Xml.Linq</AssemblyReference>
+                                                <AssemblyReference>UiPath.Library</AssemblyReference>
+                                                <AssemblyReference>PresentationFramework</AssemblyReference>
+                                                <AssemblyReference>WindowsBase</AssemblyReference>
+                                                <AssemblyReference>PresentationCore</AssemblyReference>
+                                                <AssemblyReference>System.Xaml</AssemblyReference>
+                                              </sco:Collection>
+                                            </TextExpression.References>
+                                          </Delay>
+                                          <Assign sap2010:WorkflowViewState.IdRef="Assign_4">
+                                            <Assign.To>
+                                              <OutArgument x:TypeArguments="x:Int32">[SearchCount]</OutArgument>
+                                            </Assign.To>
+                                            <Assign.Value>
+                                              <InArgument x:TypeArguments="x:Int32">[SearchCount + 1]</InArgument>
+                                            </Assign.Value>
+                                          </Assign>
+                                        </Sequence>
+                                      </If.Then>
+                                      <If.Else>
+                                        <Assign sap2010:WorkflowViewState.IdRef="Assign_5">
+                                          <Assign.To>
+                                            <OutArgument x:TypeArguments="x:Boolean">[SearchDone]</OutArgument>
+                                          </Assign.To>
+                                          <Assign.Value>
+                                            <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                                          </Assign.Value>
+                                        </Assign>
+                                      </If.Else>
+                                    </If>
+                                  </Sequence>
+                                </DoWhile>
+                                <ui:ExtractData NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[Gnts]" DelayBetweenPagesMS="300" DisplayName="Extract Structured Data - 등록 가능한 보증서 목록 " ExtractMetadata="&lt;extract-table get_columns_name='1' get_empty_columns='1' /&gt;" sap2010:WorkflowViewState.IdRef="ExtractData_2" MaxNumberOfResults="100">
+                                  <ui:ExtractData.Target>
+                                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="799d9e8298d7f6209d8bdfd9a29017fc" Selector="&lt;webctrl parentid='ctl00_CPL1_UpdatePanelgur' tag='TABLE' /&gt;" WaitForReady="COMPLETE" />
+                                  </ui:ExtractData.Target>
+                                </ui:ExtractData>
+                                <If Condition="[Gnts isNot Nothing AndAlso Gnts.Rows.Count &gt; 0]" DisplayName="If - 검색결과가 있는 경우 " sap2010:WorkflowViewState.IdRef="If_2">
+                                  <If.Then>
+                                    <Sequence sap2010:WorkflowViewState.IdRef="Sequence_13">
+                                      <Sequence.Variables>
+                                        <Variable x:TypeArguments="scg:IEnumerable(ui:UiElement)" Name="GntTRs" />
+                                      </Sequence.Variables>
+                                      <ui:FindChildren Children="[GntTRs]" DisplayName="Find Children - 보증서 UiElement 추출 " Filter="&lt;webctrl tag='TR' /&gt;" sap2010:WorkflowViewState.IdRef="FindChildren_1" Scope="FIND_CHILDREN">
+                                        <ui:FindChildren.Target>
+                                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="c12663448f65d414cad846942ab53010" Selector="&lt;webctrl parentid='ctl00_CPL1_UpdatePanelgur' tag='TBODY' /&gt;" WaitForReady="INTERACTIVE" />
+                                        </ui:FindChildren.Target>
+                                      </ui:FindChildren>
+                                      <Assign DisplayName="Assign - 초기화 " sap2010:WorkflowViewState.IdRef="Assign_10">
+                                        <Assign.To>
+                                          <OutArgument x:TypeArguments="x:Int32">[GntIndex]</OutArgument>
+                                        </Assign.To>
+                                        <Assign.Value>
+                                          <InArgument x:TypeArguments="x:Int32">0</InArgument>
+                                        </Assign.Value>
+                                      </Assign>
+                                      <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[Gnts]" DisplayName="For Each Row - 검색된 보증서 목록에 대해서 " sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+                                        <ui:ForEachRow.Body>
+                                          <ActivityAction x:TypeArguments="sd:DataRow">
+                                            <ActivityAction.Argument>
+                                              <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
+                                            </ActivityAction.Argument>
+                                            <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                                              <Sequence.Variables>
+                                                <Variable x:TypeArguments="x:Boolean" Name="GntFound" />
+                                                <Variable x:TypeArguments="ui:UiElement" Name="GntTR" />
+                                              </Sequence.Variables>
+                                              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke LookupSubcontractGuarantee workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="KISCON\LookupSubcontractGuarantee.xaml">
+                                                <ui:InvokeWorkflowFile.Arguments>
+                                                  <InArgument x:TypeArguments="x:String" x:Key="in_Issuer">[comp]</InArgument>
+                                                  <InArgument x:TypeArguments="x:String" x:Key="in_IssueNumber">[row("보증서번호").ToString]</InArgument>
+                                                  <InArgument x:TypeArguments="x:String" x:Key="in_IssueDate">[row("발급일자").ToString]</InArgument>
+                                                  <OutArgument x:TypeArguments="x:Boolean" x:Key="out_Found">[GntFound]</OutArgument>
+                                                  <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_TargetDT">[ExistingGuarantees]</InOutArgument>
+                                                  <InArgument x:TypeArguments="x:String" x:Key="in_Creditor">[row("보증채권자").ToString]</InArgument>
+                                                  <InArgument x:TypeArguments="x:String" x:Key="in_Authority">[row("발급기관").ToString]</InArgument>
+                                                </ui:InvokeWorkflowFile.Arguments>
+                                              </ui:InvokeWorkflowFile>
+                                              <If Condition="[Not GntFound]" DisplayName="If - 보증서가 없다면 추가 " sap2010:WorkflowViewState.IdRef="If_3">
+                                                <If.Then>
+                                                  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_14">
+                                                    <Sequence.Variables>
+                                                      <Variable x:TypeArguments="scg:IEnumerable(ui:UiElement)" Name="GntCheckInputs" />
+                                                      <Variable x:TypeArguments="scg:IEnumerable(ui:UiElement)" Name="GntTDs" />
+                                                      <Variable x:TypeArguments="ui:GenericValue" Name="GntCompName" />
+                                                    </Sequence.Variables>
+                                                    <Assign DisplayName="Assign - 해당 테이블 열 선택 " sap2010:WorkflowViewState.IdRef="Assign_8">
+                                                      <Assign.To>
+                                                        <OutArgument x:TypeArguments="ui:UiElement">[GntTR]</OutArgument>
+                                                      </Assign.To>
+                                                      <Assign.Value>
+                                                        <InArgument x:TypeArguments="ui:UiElement">[GntTRs.ElementAt( GntIndex)]</InArgument>
+                                                      </Assign.Value>
+                                                    </Assign>
+                                                    <ui:FindChildren Children="[GntTDs]" DisplayName="Find Children" Filter="&lt;webctrl  tag='TD' /&gt;" sap2010:WorkflowViewState.IdRef="FindChildren_3" Scope="FIND_CHILDREN">
+                                                      <ui:FindChildren.Target>
+                                                        <ui:Target ClippingRegion="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" Element="[GntTR]" WaitForReady="INTERACTIVE" />
+                                                      </ui:FindChildren.Target>
+                                                    </ui:FindChildren>
+                                                    <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="aaname" DisplayName="Get Attribute - 보증채권자 이름  " sap2010:WorkflowViewState.IdRef="GetAttribute_2">
+                                                      <ui:GetAttribute.Result>
+                                                        <OutArgument x:TypeArguments="ui:GenericValue">[GntCompName]</OutArgument>
+                                                      </ui:GetAttribute.Result>
+                                                      <ui:GetAttribute.Target>
+                                                        <ui:Target ClippingRegion="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" Element="[GntTDs.ElementAt(1)]" WaitForReady="INTERACTIVE" />
+                                                      </ui:GetAttribute.Target>
+                                                    </ui:GetAttribute>
+                                                    <If Condition="[Not (comp.Contains ( GntCompName.Trim) Or GntCompName.Trim.Contains( comp))]" DisplayName="If - 선택된 회사 이름과 보증서채권자 이름이 같은지 비교 " sap2010:WorkflowViewState.IdRef="If_7">
+                                                      <If.Then>
+                                                        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_19">
+                                                          <Assign DisplayName="Assign - 인덱스 증가 " sap2010:WorkflowViewState.IdRef="Assign_18">
+                                                            <Assign.To>
+                                                              <OutArgument x:TypeArguments="x:Int32">[GntIndex]</OutArgument>
+                                                            </Assign.To>
+                                                            <Assign.Value>
+                                                              <InArgument x:TypeArguments="x:Int32">[GntIndex + 1]</InArgument>
+                                                            </Assign.Value>
+                                                          </Assign>
+                                                          <ui:Continue sap2010:WorkflowViewState.IdRef="Continue_1" />
+                                                        </Sequence>
+                                                      </If.Then>
+                                                    </If>
+                                                    <ui:FindChildren Children="[GntCheckInputs]" DisplayName="Find Children - 체크박스 찾기 " Filter="&lt;webctrl tag='INPUT' /&gt;" sap2010:WorkflowViewState.IdRef="FindChildren_2" Scope="FIND_DESCENDANTS">
+                                                      <ui:FindChildren.Target>
+                                                        <ui:Target ClippingRegion="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" Element="[GntTR]" InformativeScreenshot="726ae8ea2b30c92f184b5b3ce22b50ec" WaitForReady="INTERACTIVE" />
+                                                      </ui:FindChildren.Target>
+                                                    </ui:FindChildren>
+                                                    <ui:Check ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" Action="Check" DisplayName="Check - 보증서 항목 체크 " sap2010:WorkflowViewState.IdRef="Check_1">
+                                                      <ui:Check.Target>
+                                                        <ui:Target ClippingRegion="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" Element="[GntCheckInputs.First]" InformativeScreenshot="20822fe19c80814fc12673a9a406ec84" WaitForReady="INTERACTIVE" />
+                                                      </ui:Check.Target>
+                                                    </ui:Check>
+                                                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click - 해당 보증서 저장 " sap2010:WorkflowViewState.IdRef="Click_3" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                                                      <ui:Click.CursorPosition>
+                                                        <ui:CursorPosition Position="Center">
+                                                          <ui:CursorPosition.OffsetX>
+                                                            <InArgument x:TypeArguments="x:Int32" />
+                                                          </ui:CursorPosition.OffsetX>
+                                                          <ui:CursorPosition.OffsetY>
+                                                            <InArgument x:TypeArguments="x:Int32" />
+                                                          </ui:CursorPosition.OffsetY>
+                                                        </ui:CursorPosition>
+                                                      </ui:Click.CursorPosition>
+                                                      <ui:Click.Target>
+                                                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="e602b3a2e0f986f7b8acc4180b268827" Selector="&lt;webctrl id='ctl00_CPL1_save_data2' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
+                                                      </ui:Click.Target>
+                                                    </ui:Click>
+                                                    <Assign DisplayName="Assign - 하수급인 보증서 등록" sap2010:WorkflowViewState.IdRef="Assign_14">
+                                                      <Assign.To>
+                                                        <OutArgument x:TypeArguments="x:String">[out_StatusMsg]</OutArgument>
+                                                      </Assign.To>
+                                                      <Assign.Value>
+                                                        <InArgument x:TypeArguments="x:String">하수급인 보증서 등록</InArgument>
+                                                      </Assign.Value>
+                                                    </Assign>
+                                                    <ui:CommentOut DisplayName="Comment Out" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+                                                      <ui:CommentOut.Body>
+                                                        <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                                                          <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Trace" Message="[String.Format(&quot;남아 있는 보증서 개수 : {0} &quot;, Gnts.Rows.Count - 1)]" />
+                                                        </Sequence>
+                                                      </ui:CommentOut.Body>
+                                                    </ui:CommentOut>
+                                                    <Assign DisplayName="Assign - 인덱스 증가 " sap2010:WorkflowViewState.IdRef="Assign_11">
+                                                      <Assign.To>
+                                                        <OutArgument x:TypeArguments="x:Int32">[GntIndex]</OutArgument>
+                                                      </Assign.To>
+                                                      <Assign.Value>
+                                                        <InArgument x:TypeArguments="x:Int32">[GntIndex + 1]</InArgument>
+                                                      </Assign.Value>
+                                                    </Assign>
+                                                    <Delay mva:VisualBasic.Settings="{x:Null}" DisplayName="Delay 1 second" Duration="00:00:01" sap2010:WorkflowViewState.IdRef="Delay_1">
+                                                      <TextExpression.Namespaces>
+                                                        <sco:Collection x:TypeArguments="x:String">
+                                                          <x:String>System.Activities</x:String>
+                                                          <x:String>System.Activities.Statements</x:String>
+                                                          <x:String>System.Activities.Expressions</x:String>
+                                                          <x:String>System.Activities.Validation</x:String>
+                                                          <x:String>System.Activities.XamlIntegration</x:String>
+                                                          <x:String>Microsoft.VisualBasic.Activities</x:String>
+                                                          <x:String>System</x:String>
+                                                          <x:String>System.Collections.Generic</x:String>
+                                                          <x:String>System.Data</x:String>
+                                                          <x:String>System.Diagnostics</x:String>
+                                                          <x:String>System.IO</x:String>
+                                                          <x:String>System.Linq</x:String>
+                                                          <x:String>System.Management.Automation</x:String>
+                                                          <x:String>System.Net.Mail</x:String>
+                                                          <x:String>System.Xml</x:String>
+                                                          <x:String>System.Xml.Linq</x:String>
+                                                          <x:String>UiPath.Library</x:String>
+                                                          <x:String>System.Windows.Markup</x:String>
+                                                        </sco:Collection>
+                                                      </TextExpression.Namespaces>
+                                                      <TextExpression.References>
+                                                        <sco:Collection x:TypeArguments="AssemblyReference">
+                                                          <AssemblyReference>System.Activities</AssemblyReference>
+                                                          <AssemblyReference>mscorlib</AssemblyReference>
+                                                          <AssemblyReference>System.Data</AssemblyReference>
+                                                          <AssemblyReference>System</AssemblyReference>
+                                                          <AssemblyReference>System.Core</AssemblyReference>
+                                                          <AssemblyReference>System.Management.Automation</AssemblyReference>
+                                                          <AssemblyReference>System.Xml</AssemblyReference>
+                                                          <AssemblyReference>System.Xml.Linq</AssemblyReference>
+                                                          <AssemblyReference>UiPath.Library</AssemblyReference>
+                                                          <AssemblyReference>PresentationFramework</AssemblyReference>
+                                                          <AssemblyReference>WindowsBase</AssemblyReference>
+                                                          <AssemblyReference>PresentationCore</AssemblyReference>
+                                                          <AssemblyReference>System.Xaml</AssemblyReference>
+                                                        </sco:Collection>
+                                                      </TextExpression.References>
+                                                    </Delay>
+                                                    <ui:Break sap2010:WorkflowViewState.IdRef="Break_2" />
+                                                  </Sequence>
+                                                </If.Then>
+                                                <If.Else>
+                                                  <Assign DisplayName="Assign - 인덱스 증가 " sap2010:WorkflowViewState.IdRef="Assign_12">
+                                                    <Assign.To>
+                                                      <OutArgument x:TypeArguments="x:Int32">[GntIndex]</OutArgument>
+                                                    </Assign.To>
+                                                    <Assign.Value>
+                                                      <InArgument x:TypeArguments="x:Int32">[GntIndex + 1]</InArgument>
+                                                    </Assign.Value>
+                                                  </Assign>
+                                                </If.Else>
+                                              </If>
+                                            </Sequence>
+                                          </ActivityAction>
+                                        </ui:ForEachRow.Body>
+                                      </ui:ForEachRow>
+                                    </Sequence>
+                                  </If.Then>
+                                </If>
+                              </Sequence>
+                            </DoWhile>
+                          </Sequence>
+                        </ActivityAction>
+                      </ui:ForEach.Body>
+                    </ui:ForEach>
+                  </Sequence>
+                </ActivityAction>
+              </ui:ForEach.Body>
+            </ui:ForEach>
+          </Sequence>
+        </ActivityAction>
+      </ui:BrowserScope.Body>
+    </ui:BrowserScope>
+    <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[String.Format(&quot;하수급인 보증서 입력 소요 시간 : {0}&quot;, DateTime.Now - CurTime)]" />
+    <sads:DebugSymbol.Symbol>d1tDOlxVc2Vyc1xoeXVuZ3Nvb1xXb3Jrc3BhY2VzXE15d29ya1xLSVNDT05BdXRvbWF0aW9uXEtJU0NPTlxVcGRhdGVTdWJjb250cmFjdEd1YXJhbnRlZS54YW1srQFQA9IEDgIBAVQFzwQXAgEE0AQF0ATDAQIBAlSgAlTGAgMB3gFaC8wEFgIBBdAEctAEwAECAQNgDWcWAwHaAWgNbxYDAdYBcA27ARgDAZ4BvAENwwEdAwGdAcQBDcsEGgIBBmU6ZUgDAd0BYjtiRAMB2wFtOG1GAwHZAWo5akgDAdcBcQ94GAMB0gF5D5QBFAMBvwGVAQ+wARQDAawBsQEPtQEgAwGkAbYBD7oBFAMBnwHEAZ8BxAGvAQMBmwHKARPIBB4CAQd2PnZHAwHVAXM/c1MDAdMBeR15NwMBwAF7E5IBHgMBwgGVAR2VATgDAa0BlwETrgEeAwGvAbEB1wKxAdoCAwGrAbMBogGzAecBAwGqAbEBhwGxAYwBAwGpAbEBS7EBUQMBqAGxAVyxAXIDAaYBsQHPAbEBkwIDAaUBtgEdtgFjAwGgAbgBE7gB/xADAaEBywEVxwQiAgEIfxWDAS4DAc4BhAEViQEtAwHIAYoBFZEBHgMBwwGbARWfAS4DAbsBoAEVpQEtAwG1AaYBFa0BHgMBsAG4ATC4AUYDAaIBywGoAcsBuQEDAZkB0QEbxAQmAgEJf11/bAMB0AGBAagBgQHnAQMBzwGGAV2GAWoDAcwBhAHNAYQB6wEDAcsBhwFfhwFqAwHJAY8BSo8BVQMBxgGMAUuMAVkDAcQBmwFgmwFvAwG9AZ0BqAGdAe0BAwG8AaIBXaIBagMBuQGgAc0BoAHrAQMBuAGjAV+jAWwDAbYBqwFKqwFXAwGzAagBS6gBWgMBsQHXAR3DBCcCAQrbATLbAXIDAZgB3AEfwgQqAgEL3QEh6wExAwGUAewBIfwBMQMBkAH9ASGBAi8DAYwBggIhkAIsAwGKAZECIZgCKgMBhgGZAiGgAioDAYIBoQIh+QIrAgFl+gIh/gIyAgFd/wIhwQQmAgEM3QHRAd0B2QEDAZUB6QG0AekB8wEDAZcB7AHUAewB3AEDAZEB+gG0AfoB+QEDAZMB/wG0Af8B9AEDAY8B/QGzAv0BxgIDAY0BjgK0AY4C8AEDAYsBlgJNlgJSAwGJAZMCTpMCWgMBhwGeAkueAkwDAYUBmwJMmwJZAwGDAaUCNqUCYwIBf6YCI/gCLgIBZvoC4AL6AuUCAgFk/AK0AfwC+AECAWP6AosB+gKQAQIBYvoCXfoCYwIBYfoCbvoCdgIBX/oC2AH6ApwCAgFe/wIv/wJkAgENgQMlvwQwAgEOpwIlrgIuAgF7rwIltgI3AgF1twIl9wIqAgFnhQMniQM5AgFZigMnkQMwAgFVkgMnvgQ3AgEPrAJRrAJaAgF+qQJSqQJmAgF8rwJbrwJhAgF5rwJArwJKAgF4sQJSsQJmAgF2tAK4AbQC9QECAXq3AjO3ApMBAgFouQIp6wI0AgFt7gIp9QIyAgFphwO6AYcD/gECAVyFA4MBhQOfAQIBW4UDQYUDSwIBWo8DUY8DUgIBWIwDUowDXAIBVpIDWJIDYAIBU5gDLbsEOAIBELoCK+ICMwIBc+MCK+oCNAIBbvMCVfMCWQIBbPACVvACYgIBap0DL6cDRwIBR6gDL7oENAIBEboChAG6ApYBAgF06AJV6AJmAgFx5QJW5QJjAgFvoQNvoQOFAQIBUqQDbqQDhQECAVGfA2yfA3ICAU+jA3WjA4kBAgFNogNuogN4AgFLoANxoAOIAQIBSp0D8QGdA5kCAgFJpQNvpQOFAQIBSKgDPagDTQIBEqoDM64EPgIBGbEEM7gEPAIBFLADNbcDPgIBQ7gDNbwDRwIBPr0DNcQDRwIBOcUDNdMDOgIBMNQDNdgDRwIBK9kDNd0DQAIBKd4DNewDQAIBJ+0DNfQDPgIBI/UDNfsDRQIBIvwDNYMEPgIBHYQENawEPQIBG60ENa0EawIBGrYEXbYEawIBF7MEXrMEaAIBFbUDZLUDgQECAUayA2WyA2wCAUS4A324A5oBAgFCugOPAboDmAECAUC4A0+4A1kCAT+9A2u9A3MCATy/A2i/A3UCATrCA48BwgOmAQIBPcUDQ8UDkgECATHHAznRA0QCATLUA5AB1AOvAQIBL9YDjwHWA5gBAgEt1ANP1ANhAgEs2wOPAdsDpwECASrqA8gB6gOCAgIBKPIDYPIDawIBJu8DYe8DcAIBJIEEX4EEbQIBIP4DYP4DagIBHoQEhgGEBJABAgEcyAM7zwNEAgE00AM70AN3AgEzzQNlzQNzAgE3ygNmygNwAgE1</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="Assign_15" sap:VirtualizedContainerService.HintSize="1076,60" />
+      <sap2010:ViewStateData Id="Assign_13" sap:VirtualizedContainerService.HintSize="1076,60" />
+      <sap2010:ViewStateData Id="Assign_7" sap:VirtualizedContainerService.HintSize="464,60" />
+      <sap2010:ViewStateData Id="WaitUiElementAppear_1" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_1" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="Assign_16" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="Sequence_17" sap:VirtualizedContainerService.HintSize="336,457">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_5" sap:VirtualizedContainerService.HintSize="464,604" />
+      <sap2010:ViewStateData Id="WaitUiElementAppear_2" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_2" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="Assign_17" sap:VirtualizedContainerService.HintSize="314,60" />
+      <sap2010:ViewStateData Id="Sequence_18" sap:VirtualizedContainerService.HintSize="336,457">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_6" sap:VirtualizedContainerService.HintSize="464,604" />
+      <sap2010:ViewStateData Id="ExtractData_6" sap:VirtualizedContainerService.HintSize="464,106" />
+      <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="If_4" sap:VirtualizedContainerService.HintSize="464,207" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="1076,1865">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="LogMessage_1" sap:VirtualizedContainerService.HintSize="314,91" />
+      <sap2010:ViewStateData Id="LogMessage_2" sap:VirtualizedContainerService.HintSize="314,91" />
+      <sap2010:ViewStateData Id="Sequence_20" sap:VirtualizedContainerService.HintSize="336,346">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CommentOut_2" sap:VirtualizedContainerService.HintSize="1076,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="SelectItem_1" sap:VirtualizedContainerService.HintSize="952,134" />
+      <sap2010:ViewStateData Id="SelectItem_2" sap:VirtualizedContainerService.HintSize="952,134" />
+      <sap2010:ViewStateData Id="TypeInto_1" sap:VirtualizedContainerService.HintSize="952,134" />
+      <sap2010:ViewStateData Id="Click_1" sap:VirtualizedContainerService.HintSize="952,106" />
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="952,60" />
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="952,60" />
+      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="535.2,60" />
+      <sap2010:ViewStateData Id="GetAttribute_1" sap:VirtualizedContainerService.HintSize="535.2,135.2" />
+      <sap2010:ViewStateData Id="Assign_4" sap:VirtualizedContainerService.HintSize="244,60" />
+      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="266.4,247.2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_5" sap:VirtualizedContainerService.HintSize="244,60" />
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="535.2,396.8" />
+      <sap2010:ViewStateData Id="Sequence_7" sap:VirtualizedContainerService.HintSize="557.6,796.8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="DoWhile_1" sap:VirtualizedContainerService.HintSize="952,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExtractData_2" sap:VirtualizedContainerService.HintSize="952,106" />
+      <sap2010:ViewStateData Id="FindChildren_1" sap:VirtualizedContainerService.HintSize="805,106" />
+      <sap2010:ViewStateData Id="Assign_10" sap:VirtualizedContainerService.HintSize="805,60" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_3" sap:VirtualizedContainerService.HintSize="753,87" />
+      <sap2010:ViewStateData Id="Assign_8" sap:VirtualizedContainerService.HintSize="464,60" />
+      <sap2010:ViewStateData Id="FindChildren_3" sap:VirtualizedContainerService.HintSize="464,68" />
+      <sap2010:ViewStateData Id="GetAttribute_2" sap:VirtualizedContainerService.HintSize="464,96" />
+      <sap2010:ViewStateData Id="Assign_18" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="Continue_1" sap:VirtualizedContainerService.HintSize="242,22" />
+      <sap2010:ViewStateData Id="Sequence_19" sap:VirtualizedContainerService.HintSize="264,246">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_7" sap:VirtualizedContainerService.HintSize="464,393" />
+      <sap2010:ViewStateData Id="FindChildren_2" sap:VirtualizedContainerService.HintSize="464,106" />
+      <sap2010:ViewStateData Id="Check_1" sap:VirtualizedContainerService.HintSize="464,106" />
+      <sap2010:ViewStateData Id="Click_3" sap:VirtualizedContainerService.HintSize="464,106" />
+      <sap2010:ViewStateData Id="Assign_14" sap:VirtualizedContainerService.HintSize="464,60" />
+      <sap2010:ViewStateData Id="LogMessage_3" sap:VirtualizedContainerService.HintSize="314,91" />
+      <sap2010:ViewStateData Id="Sequence_16" sap:VirtualizedContainerService.HintSize="336,215">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CommentOut_1" sap:VirtualizedContainerService.HintSize="464,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_11" sap:VirtualizedContainerService.HintSize="464,60" />
+      <sap2010:ViewStateData Id="Delay_1" sap:VirtualizedContainerService.HintSize="464,22" />
+      <sap2010:ViewStateData Id="Break_2" sap:VirtualizedContainerService.HintSize="464,22" />
+      <sap2010:ViewStateData Id="Sequence_14" sap:VirtualizedContainerService.HintSize="486,1714">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_12" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="753,1861">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_12" sap:VirtualizedContainerService.HintSize="775,2112">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEachRow_1" sap:VirtualizedContainerService.HintSize="805,2259">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_13" sap:VirtualizedContainerService.HintSize="827,2629">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="952,2776">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_15" sap:VirtualizedContainerService.HintSize="974,4005">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="DoWhile_2" sap:VirtualizedContainerService.HintSize="1000,4166" />
+      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="1022,4290">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEach`1_2" sap:VirtualizedContainerService.HintSize="1038,4423" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="1060,4547">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEach`1_1" sap:VirtualizedContainerService.HintSize="1076,4680" />
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="1098,7000">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="BrowserScope_1" sap:VirtualizedContainerService.HintSize="1112,7146" />
+      <sap2010:ViewStateData Id="LogMessage_4" sap:VirtualizedContainerService.HintSize="1112,91" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="1134,7608">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="UpdateSubcontractGuarantee_1" sap:VirtualizedContainerService.HintSize="1174,7688" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

@@ -1,0 +1,266 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="LogKisconStatus"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_ConnStr" Type="InArgument(x:String)" />
+    <x:Property Name="in_Query" Type="InArgument(x:String)" />
+    <x:Property Name="in_Messages" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property Name="in_ProvName" Type="InArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>LogKisconStatus_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Kiscon작업 진행사항 로깅 (Message 길이는 3000, 더 길면 Substring 처리) &#xA;&#xA;Input &#xA;  - in_ConnStr : String - DB연결 정보 &#xA;  - in_Query: String - 질문의 내용 (상태 로깅)&#xA;  - in_Dictionary&lt;String,String&gt; - 로깅 정보 (Key/Value 형태) &#xA;     필수 key : PJT_CD, TAB_NAME, TAB_KEY, STATUS, MESSAGE &#xD;&#xA;  - in_ProvName: String - DB Client 이름 &#xA;&#xA;Output&#xA;  - 없음 &#xA;" DisplayName="LogKisconStatus" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="s:String[]" Name="Changes" />
+      <Variable x:TypeArguments="s:String[]" Name="Attrs" />
+      <Variable x:TypeArguments="s:String[]" Name="ChangeVals" />
+      <Variable x:TypeArguments="s:String[]" Name="AttrVals" />
+      <Variable x:TypeArguments="x:Int32" Name="AddedRows" />
+    </Sequence.Variables>
+    <Assign sap2010:WorkflowViewState.IdRef="Assign_3">
+      <Assign.To>
+        <OutArgument x:TypeArguments="s:String[]">[ChangeVals]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="s:String[]">[{ String.Empty, String.Empty, String.Empty, String.Empty, String.Empty}]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign sap2010:WorkflowViewState.IdRef="Assign_4">
+      <Assign.To>
+        <OutArgument x:TypeArguments="s:String[]">[AttrVals]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="s:String[]">[{ String.Empty, String.Empty, String.Empty, String.Empty, String.Empty}]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[in_Messages.Keys]">
+      <ui:ForEach.Body>
+        <ActivityAction x:TypeArguments="x:String">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:String" Name="item" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <If Condition="[item = &quot;change&quot;]" sap2010:WorkflowViewState.IdRef="If_1">
+              <If.Then>
+                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_7">
+                  <Assign sap2010:WorkflowViewState.IdRef="Assign_1">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="s:String[]">[Changes]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="s:String[]">[in_Messages(item).Split("|".ToCharArray)]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <InvokeMethod DisplayName="Invoke Method" sap2010:WorkflowViewState.IdRef="InvokeMethod_1" MethodName="Copy" TargetType="s:Array">
+                    <InArgument x:TypeArguments="s:String[]">[Changes]</InArgument>
+                    <InArgument x:TypeArguments="s:String[]">[ChangeVals]</InArgument>
+                    <InArgument x:TypeArguments="x:Int32">[Math.Min(Changes.Length, ChangeVals.Length)]</InArgument>
+                  </InvokeMethod>
+                </Sequence>
+              </If.Then>
+            </If>
+            <If Condition="[item = &quot;attr&quot;]" sap2010:WorkflowViewState.IdRef="If_2">
+              <If.Then>
+                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_4">
+                  <Assign sap2010:WorkflowViewState.IdRef="Assign_2">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="s:String[]">[Attrs]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="s:String[]">[in_Messages(item).Split("|".ToCharArray)]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <InvokeMethod DisplayName="Invoke Method" sap2010:WorkflowViewState.IdRef="InvokeMethod_2" MethodName="Copy" TargetType="s:Array">
+                    <InArgument x:TypeArguments="s:String[]">[Attrs]</InArgument>
+                    <InArgument x:TypeArguments="s:String[]">[AttrVals]</InArgument>
+                    <InArgument x:TypeArguments="x:Int32">[Math.Min(Attrs.Length, AttrVals.Length)]</InArgument>
+                  </InvokeMethod>
+                </Sequence>
+              </If.Then>
+            </If>
+          </Sequence>
+        </ActivityAction>
+      </ui:ForEach.Body>
+    </ui:ForEach>
+    <If Condition="[in_Messages.ContainsKey(&quot;MESSAGE&quot;) AndAlso Not String.IsNullOrEmpty (in_Messages(&quot;MESSAGE&quot;)) AndAlso in_Messages(&quot;MESSAGE&quot;).Length &gt; 3000]" sap2010:WorkflowViewState.IdRef="If_3">
+      <If.Then>
+        <Assign sap2010:WorkflowViewState.IdRef="Assign_5">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">[in_Messages("MESSAGE")]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">[in_Messages("MESSAGE").Substring(2999)]</InArgument>
+          </Assign.Value>
+        </Assign>
+      </If.Then>
+    </If>
+    <TryCatch DisplayName="Try Catch" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+      <TryCatch.Try>
+        <ui:ExecuteNonQuery ContinueOnError="{x:Null}" ExistingDbConnection="{x:Null}" TimeoutMS="{x:Null}" AffectedRecords="[AddedRows]" CommandType="Text" DisplayName="Execute Non Query" sap2010:WorkflowViewState.IdRef="ExecuteNonQuery_1" ProviderName="[in_ProvName]" Sql="[in_Query]" ConnectionString="[in_ConnStr]">
+          <ui:ExecuteNonQuery.Parameters>
+            <InArgument x:TypeArguments="x:String" x:Key="project_code">[in_Messages("PJT_CD")]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="tab_name">[in_Messages("TAB_NAME")]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="tab_key">[in_Messages("TAB_KEY")]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="status">[in_Messages("STATUS")]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="message">[in_Messages("MESSAGE")]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="change1">[ChangeVals(0)]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="change2">[ChangeVals(1)]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="change3">[ChangeVals(2)]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="change4">[ChangeVals(3)]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="change5">[ChangeVals(4)]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="attr1">[AttrVals(0)]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="attr2">[AttrVals(1)]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="attr3">[AttrVals(2)]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="attr4">[AttrVals(3)]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="attr5">[AttrVals(4)]</InArgument>
+          </ui:ExecuteNonQuery.Parameters>
+        </ui:ExecuteNonQuery>
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+          <ActivityAction x:TypeArguments="s:Exception">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+            </ActivityAction.Argument>
+            <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Warn" Message="[String.Format(&quot; 진행상태 로깅에 오류가 발생 : {0}&quot;, exception.Message)]" />
+          </ActivityAction>
+        </Catch>
+      </TryCatch.Catches>
+    </TryCatch>
+    <sads:DebugSymbol.Symbol>d05DOlxVc2Vyc1xoeXVuZ3Nvb1xXb3Jrc3BhY2VzXERvb3NhblxLSVNDT05fVXBkYXRlclxEb29zYW5cTG9nS2lzY29uU3RhdHVzLnhhbWw6TAPDAQ4CAQFUBVsOAgFfXAVjDgIBW2QFlAESAgE3lQEFoAEKAgEtoQEFwQEQAgECWTJZewIBYlYzVj8CAWBhMmF7AgFeXjNePQIBXGSQAWSkAQIBWWoLkQEWAgE4lQETlQHBAQIBLpcBCZ4BEgIBMqMBCbUBHgIBBr0BDb0BxQECAQNrDX0SAgFJfg2QARICATmcATScAVwCATWZATWZAU0CATOrAUSrAVMCASuwAUKwAU8CASmjAf8BowGOAgIBJ6wBRKwBUwIBJbEBQrEBTwIBI6MBsQKjAb8CAgEhqgFEqgFTAgEfrwFCrwFPAgEdpwFEpwFcAgEbsgFCsgFPAgEZrQFErQFTAgEXswFCswFPAgEVrgFErgFTAgETpgFFpgFeAgERqAFDqAFaAgEPowGTAqMBnwICAQ2lAUmlAWACAQujAX2jAYoBAgEJqQFEqQFcAgEHvQF6vQHCAQIBBGsbazgCAUptEXscAgFMfht+NgIBOoABEY4BHAIBPG4TdRwCAVN2E3oiAgFNgQETiAEcAgFDiQETjQEiAgE9c0BzagIBVnBBcEoCAVR4PnhKAgFReTt5aAIBUHc+d0cCAU6GAUCGAWoCAUaDAUGDAUgCAUSLAT6LAUgCAUGMATuMAWQCAUCKAT6KAUUCAT4=</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="502,60" />
+      <sap2010:ViewStateData Id="Assign_4" sap:VirtualizedContainerService.HintSize="502,60" />
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="InvokeMethod_1" sap:VirtualizedContainerService.HintSize="242,132" />
+      <sap2010:ViewStateData Id="Sequence_7" sap:VirtualizedContainerService.HintSize="264,356">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="464,504" />
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="InvokeMethod_2" sap:VirtualizedContainerService.HintSize="242,132" />
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="264,356">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="464,504" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="486,1172">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEach`1_2" sap:VirtualizedContainerService.HintSize="502,1306">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_5" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="502,208" />
+      <sap2010:ViewStateData Id="ExecuteNonQuery_1" sap:VirtualizedContainerService.HintSize="314,88" />
+      <sap2010:ViewStateData Id="LogMessage_1" sap:VirtualizedContainerService.HintSize="314,91" />
+      <sap2010:ViewStateData Id="Catch`1_1" sap:VirtualizedContainerService.HintSize="404,21">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TryCatch_1" sap:VirtualizedContainerService.HintSize="502,315">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="524,2425">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="LogKisconStatus_1" sap:VirtualizedContainerService.HintSize="564,2505" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>
