@@ -1,5 +1,5 @@
 {
-  "name": "KISCONAutomation",
+  "name": "KISCON자동화업무",
   "description": "KISCON Automation Project with UiPath",
   "main": "Main.xaml",
   "dependencies": {
@@ -13,6 +13,7 @@
   "projectVersion": "1.1.5.30",
   "runtimeOptions": {
     "autoDispose": false,
+    "isPausable": true,
     "excludedLoggedData": [
       "Private:*",
       "*password*"
@@ -33,5 +34,6 @@
       }
     ],
     "output": []
-  }
+  },
+  "webServices": []
 }
