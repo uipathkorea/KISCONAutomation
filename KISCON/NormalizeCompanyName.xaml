@@ -1,16 +1,4 @@
-﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="NormalizeCompanyName" this:NormalizeCompanyName.in_Type="KISCON"
- xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
- xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
- xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
- xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
- xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
- xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
- xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
- xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
- xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
- xmlns:this="clr-namespace:"
- xmlns:ui="http://schemas.uipath.com/workflow/activities"
- xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="NormalizeCompanyName" this:NormalizeCompanyName.in_Type="KISCON" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="io_SubcontractInfo" Type="InArgument(sd:DataTable)" />
     <x:Property Name="in_ColumnIndex" Type="InArgument(x:Int32)" />
@@ -19,6 +7,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>600,1848</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>NormalizeCompanyName_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -76,19 +65,35 @@
       <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="회사이름에 주식회사가 있으면 (주)로 변경해서 처리 &#xA;주식화시와 이름사이에 공백이 있으면 제거 &#xA;&#xA;Input &#xA;  - in_ColumnIndex: int32 - 상호가 있는 Column 인덱스 정보 &#xA;  - in_Type: String - KISCON에 있는 정보인지, 아닌지 구분  KISCON or other &#xA;&#xA;Input/Output&#xA;  - io_SubcontractInfo: DataTable - 하수급업체 정보 &#xA;" DisplayName="NormalizeCompanyName" sap2010:WorkflowViewState.IdRef="Sequence_3">
-    <Sequence sap2010:WorkflowViewState.IdRef="Sequence_2">
-      <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[io_SubcontractInfo]" DisplayName="For Each Row" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+  <Sequence sap2010:Annotation.AnnotationText="회사이름에 주식회사가 있으면 (주)로 변경해서 처리 &#xA;주식회사와 이름사이에 공백이 있으면 제거 &#xA;&#xA;Input &#xA;  - in_ColumnIndex: int32 - 상호가 있는 Column 인덱스 정보 &#xA;  - in_Type: String - KISCON에 있는 정보인지, 아닌지 구분  KISCON or other &#xA;&#xA;Input/Output&#xA;  - io_SubcontractInfo: DataTable - 하수급업체 정보 &#xA;" DisplayName="NormalizeCompanyName" sap:VirtualizedContainerService.HintSize="560,1768" sap2010:WorkflowViewState.IdRef="Sequence_3">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Sequence sap:VirtualizedContainerService.HintSize="538,1482" sap2010:WorkflowViewState.IdRef="Sequence_2">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[io_SubcontractInfo]" DisplayName="For Each Row" sap:VirtualizedContainerService.HintSize="516,1358" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
         <ui:ForEachRow.Body>
           <ActivityAction x:TypeArguments="sd:DataRow">
             <ActivityAction.Argument>
               <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
             </ActivityAction.Argument>
-            <Sequence DisplayName="Body" sap2010:WorkflowViewState.IdRef="Sequence_1">
+            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="486,1210" sap2010:WorkflowViewState.IdRef="Sequence_1">
               <Sequence.Variables>
                 <Variable x:TypeArguments="x:String" Name="NormalName" />
               </Sequence.Variables>
-              <Assign DisplayName="Assign - 상호/업체명 정보 " sap2010:WorkflowViewState.IdRef="Assign_1">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <Assign DisplayName="Assign - 상호/업체명 정보 " sap:VirtualizedContainerService.HintSize="464,60" sap2010:WorkflowViewState.IdRef="Assign_1">
                 <Assign.To>
                   <OutArgument x:TypeArguments="x:String">[NormalName]</OutArgument>
                 </Assign.To>
@@ -96,9 +101,9 @@
                   <InArgument x:TypeArguments="x:String">[row( in_ColumnIndex).ToString]</InArgument>
                 </Assign.Value>
               </Assign>
-              <If Condition="[Not String.IsNullOrEmpty(in_Type) AndAlso in_Type = &quot;KISCON&quot;]" DisplayName="If - 변경하고자 하는 소스가 KISCON 인지 고객사인지 구분 " sap2010:WorkflowViewState.IdRef="If_5">
+              <If Condition="[Not String.IsNullOrEmpty(in_Type) AndAlso in_Type = &quot;KISCON&quot;]" DisplayName="If - 변경하고자 하는 소스가 KISCON 인지 고객사인지 구분 " sap:VirtualizedContainerService.HintSize="464,208" sap2010:WorkflowViewState.IdRef="If_5">
                 <If.Then>
-                  <Assign DisplayName="Assign - 이름/법인번호 분리 " sap2010:WorkflowViewState.IdRef="Assign_7">
+                  <Assign DisplayName="Assign - 이름/법인번호 분리 " sap:VirtualizedContainerService.HintSize="242,60" sap2010:WorkflowViewState.IdRef="Assign_7">
                     <Assign.To>
                       <OutArgument x:TypeArguments="x:String">[NormalName]</OutArgument>
                     </Assign.To>
@@ -108,9 +113,9 @@
                   </Assign>
                 </If.Then>
               </If>
-              <If Condition="[NormalName.EndsWith(&quot;주식회사&quot;)]" DisplayName="If - 주식회사로 끝나는 경우 (주)로 치환 " sap2010:WorkflowViewState.IdRef="If_1">
+              <If Condition="[NormalName.EndsWith(&quot;주식회사&quot;)]" DisplayName="If - 주식회사로 끝나는 경우 (주)로 치환 " sap:VirtualizedContainerService.HintSize="464,208" sap2010:WorkflowViewState.IdRef="If_1">
                 <If.Then>
-                  <Assign DisplayName="Assign - 주식회사 변경" sap2010:WorkflowViewState.IdRef="Assign_2">
+                  <Assign DisplayName="Assign - 주식회사 변경" sap:VirtualizedContainerService.HintSize="242,60" sap2010:WorkflowViewState.IdRef="Assign_2">
                     <Assign.To>
                       <OutArgument x:TypeArguments="x:String">[NormalName]</OutArgument>
                     </Assign.To>
@@ -120,12 +125,17 @@
                   </Assign>
                 </If.Then>
               </If>
-              <ui:CommentOut DisplayName="Comment Out" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="464,51" sap2010:WorkflowViewState.IdRef="CommentOut_1">
                 <ui:CommentOut.Body>
-                  <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_4">
-                    <If Condition="[NormalName.EndsWith(&quot;(주)&quot;)]" sap2010:WorkflowViewState.IdRef="If_2">
+                  <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="486,331" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <If Condition="[NormalName.EndsWith(&quot;(주)&quot;)]" sap:VirtualizedContainerService.HintSize="464,207" sap2010:WorkflowViewState.IdRef="If_2">
                       <If.Then>
-                        <Assign DisplayName="Assign - (주) 제거 " sap2010:WorkflowViewState.IdRef="Assign_3">
+                        <Assign DisplayName="Assign - (주) 제거 " sap:VirtualizedContainerService.HintSize="242,60" sap2010:WorkflowViewState.IdRef="Assign_3">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:String">[NormalName]</OutArgument>
                           </Assign.To>
@@ -137,10 +147,16 @@
                     </If>
                   </Sequence>
                 </ui:CommentOut.Body>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
               </ui:CommentOut>
-              <If Condition="[NormalName.StartsWith(&quot;주식회사&quot;)]" DisplayName="If - 주식회사로 시작하는 경우 (주)로 치환 " sap2010:WorkflowViewState.IdRef="If_3">
+              <If Condition="[NormalName.StartsWith(&quot;주식회사&quot;)]" DisplayName="If - 주식회사로 시작하는 경우 (주)로 치환 " sap:VirtualizedContainerService.HintSize="464,208" sap2010:WorkflowViewState.IdRef="If_3">
                 <If.Then>
-                  <Assign DisplayName="Assign - 주식회사 변경 " sap2010:WorkflowViewState.IdRef="Assign_4">
+                  <Assign DisplayName="Assign - 주식회사 변경 " sap:VirtualizedContainerService.HintSize="242,60" sap2010:WorkflowViewState.IdRef="Assign_4">
                     <Assign.To>
                       <OutArgument x:TypeArguments="x:String">[NormalName]</OutArgument>
                     </Assign.To>
@@ -150,12 +166,17 @@
                   </Assign>
                 </If.Then>
               </If>
-              <ui:CommentOut DisplayName="Comment Out" sap2010:WorkflowViewState.IdRef="CommentOut_2">
+              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="464,51" sap2010:WorkflowViewState.IdRef="CommentOut_2">
                 <ui:CommentOut.Body>
-                  <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_5">
-                    <If Condition="[NormalName.StartsWith(&quot;(주)&quot;)]" sap2010:WorkflowViewState.IdRef="If_4">
+                  <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="486,331" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <If Condition="[NormalName.StartsWith(&quot;(주)&quot;)]" sap:VirtualizedContainerService.HintSize="464,207" sap2010:WorkflowViewState.IdRef="If_4">
                       <If.Then>
-                        <Assign DisplayName="Assign - (주) 제거 " sap2010:WorkflowViewState.IdRef="Assign_5">
+                        <Assign DisplayName="Assign - (주) 제거 " sap:VirtualizedContainerService.HintSize="242,60" sap2010:WorkflowViewState.IdRef="Assign_5">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:String">[NormalName]</OutArgument>
                           </Assign.To>
@@ -167,8 +188,14 @@
                     </If>
                   </Sequence>
                 </ui:CommentOut.Body>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
               </ui:CommentOut>
-              <Assign DisplayName="Assign - 정리된 이름 " sap2010:WorkflowViewState.IdRef="Assign_6">
+              <Assign DisplayName="Assign - 정리된 이름 " sap:VirtualizedContainerService.HintSize="464,60" sap2010:WorkflowViewState.IdRef="Assign_6">
                 <Assign.To>
                   <OutArgument x:TypeArguments="x:Object">[row( in_ColumnIndex)]</OutArgument>
                 </Assign.To>
@@ -181,76 +208,5 @@
         </ui:ForEachRow.Body>
       </ui:ForEachRow>
     </Sequence>
-    <sads:DebugSymbol.Symbol>d1NDOlxVc2Vyc1xoeXVuZ3Nvb1xXb3Jrc3BhY2VzXERvb3NhblxLSVNDT05fVXBkYXRlclxLSVNDT05cTm9ybWFsaXplQ29tcGFueU5hbWUueGFtbBsBbAFzAQJPA7kBDgIBAVAFtwEQAgECUQe2ARcCAQNROFFOAgEpVw2zARgCAQRbD2IYAgElYw9uFAIBHW8PehQCARR7D4wBHwIBE40BD5gBFAIBCpkBD6oBHwIBCasBD7IBGAIBBWA6YFkCAShdO11HAgEmYx1jZwIBHmUTbBwCASFvHW9GAgEVcRN4HAIBF40BHY0BSAIBC48BE5YBHAIBDbABOrABRgIBB60BO60BUQIBBmo+angCASRnP2dLAgEicz9zSwIBGJEBP5EBSwIBDg==</sads:DebugSymbol.Symbol>
   </Sequence>
-  <sap2010:WorkflowViewState.ViewStateManager>
-    <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="464,60" />
-      <sap2010:ViewStateData Id="Assign_7" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="If_5" sap:VirtualizedContainerService.HintSize="464,208" />
-      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="464,208" />
-      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="464,207" />
-      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="486,331">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CommentOut_1" sap:VirtualizedContainerService.HintSize="464,51">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-            <x:Boolean x:Key="IsPinned">False</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_4" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="464,208" />
-      <sap2010:ViewStateData Id="Assign_5" sap:VirtualizedContainerService.HintSize="242,60" />
-      <sap2010:ViewStateData Id="If_4" sap:VirtualizedContainerService.HintSize="464,207" />
-      <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="486,331">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CommentOut_2" sap:VirtualizedContainerService.HintSize="464,51">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-            <x:Boolean x:Key="IsPinned">False</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_6" sap:VirtualizedContainerService.HintSize="464,60" />
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="486,1210">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ForEachRow_1" sap:VirtualizedContainerService.HintSize="516,1358" />
-      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="538,1482">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="560,1768">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="NormalizeCompanyName_1" sap:VirtualizedContainerService.HintSize="600,1848" />
-    </sap2010:ViewStateManager>
-  </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
