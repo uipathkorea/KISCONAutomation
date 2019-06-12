@@ -674,9 +674,9 @@
                                       </scg:Dictionary>
                                     </sap:WorkflowViewStateService.ViewState>
                                     <If.Then>
-                                      <If Condition="[Not String.IsNullOrEmpty( StatusMsg2)]" sap:VirtualizedContainerService.HintSize="509,208" sap2010:WorkflowViewState.IdRef="If_40">
+                                      <If Condition="[Not String.IsNullOrEmpty( StatusMsg2)]" sap:VirtualizedContainerService.HintSize="511.2,209.6" sap2010:WorkflowViewState.IdRef="If_40">
                                         <If.Then>
-                                          <Assign DisplayName="Assign - 신규 및 변경 " sap:VirtualizedContainerService.HintSize="242,60" sap2010:WorkflowViewState.IdRef="Assign_89">
+                                          <Assign DisplayName="Assign - 신규 및 변경 " sap:VirtualizedContainerService.HintSize="243.2,60" sap2010:WorkflowViewState.IdRef="Assign_89">
                                             <Assign.To>
                                               <OutArgument x:TypeArguments="x:String">[io_StatusDict("change")]</OutArgument>
                                             </Assign.To>
@@ -686,7 +686,7 @@
                                           </Assign>
                                         </If.Then>
                                         <If.Else>
-                                          <Assign DisplayName="Assign - 신규 " sap:VirtualizedContainerService.HintSize="242,60" sap2010:WorkflowViewState.IdRef="Assign_90">
+                                          <Assign DisplayName="Assign - 신규 " sap:VirtualizedContainerService.HintSize="243.2,60" sap2010:WorkflowViewState.IdRef="Assign_90">
                                             <Assign.To>
                                               <OutArgument x:TypeArguments="x:String">[io_StatusDict("change")]</OutArgument>
                                             </Assign.To>
@@ -698,9 +698,9 @@
                                       </If>
                                     </If.Then>
                                     <If.Else>
-                                      <If Condition="[Not String.IsNullOrEmpty( StatusMsg2)]" sap:VirtualizedContainerService.HintSize="464,208" sap2010:WorkflowViewState.IdRef="If_41">
+                                      <If Condition="[Not String.IsNullOrEmpty( StatusMsg2)]" sap:VirtualizedContainerService.HintSize="464,209.6" sap2010:WorkflowViewState.IdRef="If_41">
                                         <If.Then>
-                                          <Assign DisplayName="Assign - 변경" sap:VirtualizedContainerService.HintSize="242,60" sap2010:WorkflowViewState.IdRef="Assign_91">
+                                          <Assign DisplayName="Assign - 변경" sap:VirtualizedContainerService.HintSize="243.2,60" sap2010:WorkflowViewState.IdRef="Assign_91">
                                             <Assign.To>
                                               <OutArgument x:TypeArguments="x:String">[io_StatusDict("change")]</OutArgument>
                                             </Assign.To>
@@ -1005,7 +1005,7 @@
                                       </Assign>
                                       <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="1000,52.8" sap2010:WorkflowViewState.IdRef="CommentOut_16">
                                         <ui:CommentOut.Body>
-                                          <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="875.2,177.6" sap2010:WorkflowViewState.IdRef="Sequence_68">
+                                          <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="876,177.6" sap2010:WorkflowViewState.IdRef="Sequence_68">
                                             <sap:WorkflowViewStateService.ViewState>
                                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -1017,7 +1017,7 @@
                                                   <ActivityAction.Argument>
                                                     <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
                                                   </ActivityAction.Argument>
-                                                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="822,722" sap2010:WorkflowViewState.IdRef="Sequence_67">
+                                                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="823.2,729.6" sap2010:WorkflowViewState.IdRef="Sequence_67">
                                                     <Sequence.Variables>
                                                       <Variable x:TypeArguments="x:Int32" Name="UpdateCount" />
                                                     </Sequence.Variables>
@@ -1026,23 +1026,23 @@
                                                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                                       </scg:Dictionary>
                                                     </sap:WorkflowViewStateService.ViewState>
-                                                    <If Condition="[row(&quot;변경완료&quot;).ToString = &quot;Y&quot;]" DisplayName="If - 변경완료로 표시된 항목에 대해서 " sap:VirtualizedContainerService.HintSize="800,598" sap2010:WorkflowViewState.IdRef="If_55">
+                                                    <If Condition="[row(&quot;변경완료&quot;).ToString = &quot;Y&quot;]" DisplayName="If - 변경완료로 표시된 항목에 대해서 " sap:VirtualizedContainerService.HintSize="800.8,604.8" sap2010:WorkflowViewState.IdRef="If_55">
                                                       <If.Then>
-                                                        <Sequence sap:VirtualizedContainerService.HintSize="675,450" sap2010:WorkflowViewState.IdRef="Sequence_66">
+                                                        <Sequence sap:VirtualizedContainerService.HintSize="676,455.2" sap2010:WorkflowViewState.IdRef="Sequence_66">
                                                           <sap:WorkflowViewStateService.ViewState>
                                                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                                               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                                             </scg:Dictionary>
                                                           </sap:WorkflowViewStateService.ViewState>
-                                                          <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="653,51" sap2010:WorkflowViewState.IdRef="CommentOut_15">
+                                                          <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="653.6,52.8" sap2010:WorkflowViewState.IdRef="CommentOut_15">
                                                             <ui:CommentOut.Body>
-                                                              <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="336,215" sap2010:WorkflowViewState.IdRef="Sequence_65">
+                                                              <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="336.8,217.6" sap2010:WorkflowViewState.IdRef="Sequence_65">
                                                                 <sap:WorkflowViewStateService.ViewState>
                                                                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                                                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                                                   </scg:Dictionary>
                                                                 </sap:WorkflowViewStateService.ViewState>
-                                                                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="314,91" sap2010:WorkflowViewState.IdRef="LogMessage_25" Level="Info" Message="[String.Format(&quot;해당 항목 - 업체명: {0}  지급일: {1}  대금구분: {2}  금액: {3}&quot;, row(&quot;하도급업체명&quot;).ToString, row(&quot;지급일&quot;).ToString, row(&quot;대금구분&quot;).ToString, row(&quot;지급액&quot;).ToString)]" />
+                                                                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="314.4,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_25" Level="Info" Message="[String.Format(&quot;해당 항목 - 업체명: {0}  지급일: {1}  대금구분: {2}  금액: {3}&quot;, row(&quot;하도급업체명&quot;).ToString, row(&quot;지급일&quot;).ToString, row(&quot;대금구분&quot;).ToString, row(&quot;지급액&quot;).ToString)]" />
                                                               </Sequence>
                                                             </ui:CommentOut.Body>
                                                             <sap:WorkflowViewStateService.ViewState>
@@ -1052,9 +1052,9 @@
                                                               </scg:Dictionary>
                                                             </sap:WorkflowViewStateService.ViewState>
                                                           </ui:CommentOut>
-                                                          <If Condition="[row(&quot;대금구분&quot;).ToString = &quot;기성금&quot;]" sap:VirtualizedContainerService.HintSize="653,235" sap2010:WorkflowViewState.IdRef="If_54">
+                                                          <If Condition="[row(&quot;대금구분&quot;).ToString = &quot;기성금&quot;]" sap:VirtualizedContainerService.HintSize="653.6,237.6" sap2010:WorkflowViewState.IdRef="If_54">
                                                             <If.Then>
-                                                              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke UpdateSubcontractPayment1-기성 workflow" sap:VirtualizedContainerService.HintSize="314,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_66" UnSafe="False" WorkflowFileName="Custom\UpdateSubcontractPayment.xaml">
+                                                              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke UpdateSubcontractPayment1-기성 workflow" sap:VirtualizedContainerService.HintSize="314.4,88" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_66" UnSafe="False" WorkflowFileName="Custom\UpdateSubcontractPayment.xaml">
                                                                 <ui:InvokeWorkflowFile.Arguments>
                                                                   <InArgument x:TypeArguments="x:String" x:Key="in_ConnStr">[in_ConnStr("UpdateSubcontractPayment1").ToString]</InArgument>
                                                                   <InArgument x:TypeArguments="x:String" x:Key="in_Query">[in_Query("UpdateSubcontractPayment1").ToString]</InArgument>
@@ -1062,11 +1062,12 @@
                                                                   <OutArgument x:TypeArguments="x:Int32" x:Key="out_Rows">[UpdateCount]</OutArgument>
                                                                   <InArgument x:TypeArguments="x:String" x:Key="in_OrdCode">[row("발주번호").ToString]</InArgument>
                                                                   <InArgument x:TypeArguments="x:String" x:Key="in_PaymentDate">[row("지급일").ToString]</InArgument>
+                                                                  <InArgument x:TypeArguments="x:String" x:Key="in_ProvName">[in_Config("DB_ProviderName").ToString]</InArgument>
                                                                 </ui:InvokeWorkflowFile.Arguments>
                                                               </ui:InvokeWorkflowFile>
                                                             </If.Then>
                                                             <If.Else>
-                                                              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke UpdateSubcontractPayment1-선급금 workflow" sap:VirtualizedContainerService.HintSize="314,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_67" UnSafe="False" WorkflowFileName="Custom\UpdateSubcontractPayment.xaml">
+                                                              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke UpdateSubcontractPayment1-선급금 workflow" sap:VirtualizedContainerService.HintSize="314.4,88" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_67" UnSafe="False" WorkflowFileName="Custom\UpdateSubcontractPayment.xaml">
                                                                 <ui:InvokeWorkflowFile.Arguments>
                                                                   <InArgument x:TypeArguments="x:String" x:Key="in_ConnStr">[in_ConnStr("UpdateSubcontractPayment2").ToString]</InArgument>
                                                                   <InArgument x:TypeArguments="x:String" x:Key="in_Query">[in_Query("UpdateSubcontractPayment2").ToString]</InArgument>
@@ -1074,6 +1075,7 @@
                                                                   <OutArgument x:TypeArguments="x:Int32" x:Key="out_Rows">[UpdateCount]</OutArgument>
                                                                   <InArgument x:TypeArguments="x:String" x:Key="in_OrdCode">[row("발주번호").ToString]</InArgument>
                                                                   <InArgument x:TypeArguments="x:String" x:Key="in_PaymentDate">[row("지급일").ToString]</InArgument>
+                                                                  <InArgument x:TypeArguments="x:String" x:Key="in_ProvName">[in_Config("DB_ProviderName").ToString]</InArgument>
                                                                 </ui:InvokeWorkflowFile.Arguments>
                                                               </ui:InvokeWorkflowFile>
                                                             </If.Else>

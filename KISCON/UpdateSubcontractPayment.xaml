@@ -14,7 +14,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>952,10180</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>952.8,10216.8</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>UpdateSubcontractPayment_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -73,7 +73,7 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="하도급대금 지급 내역을 갱신한다.&#xA;&#xA;Input &#xA;  - in_Payments: DataTable - 하도금대급 지급 내역 &#xA;  - in_Contracts: DataTable - 하수급인업체 정보 (이전단계에서 공종을 업데이트 함) &#xA;  - in_BaseRefDate:String - KISCON 적용 기준 일자  ( 이 일자 이후 것만 처리 함) &#xA;  - in_ConnStrDict: Dictionary&lt;String,Object&gt; - DB연결정보 맵 &#xA;  - in_QueryDict: Dictionary&lt;String,Object&gt; - 쿼리 맵 &#xA;  - in_ConfigDict: Dictionary&lt;String,Object&gt; - 설정 맵 &#xA;  - in_ContractName: String - 공사이름&#xA;&#xA; &#xA;Input/Output&#xA;  - io_ErrorList : List&lt;String&gt; - 오류 내용을 저장하는 리스트 &#xA;&#xA;Output&#xA;  - out_StatusMsg1: String - 기성 지급 &#xA;  - out_StatusMsg2: String - 선급금 지급 &#xA;" DisplayName="UpdateSubcontractPayment" sap:VirtualizedContainerService.HintSize="912,10100" sap2010:WorkflowViewState.IdRef="Sequence_2">
+  <Sequence sap2010:Annotation.AnnotationText="하도급대금 지급 내역을 갱신한다.&#xA;&#xA;Input &#xA;  - in_Payments: DataTable - 하도금대급 지급 내역 &#xA;  - in_Contracts: DataTable - 하수급인업체 정보 (이전단계에서 공종을 업데이트 함) &#xA;  - in_BaseRefDate:String - KISCON 적용 기준 일자  ( 이 일자 이후 것만 처리 함) &#xA;  - in_ConnStrDict: Dictionary&lt;String,Object&gt; - DB연결정보 맵 &#xA;  - in_QueryDict: Dictionary&lt;String,Object&gt; - 쿼리 맵 &#xA;  - in_ConfigDict: Dictionary&lt;String,Object&gt; - 설정 맵 &#xA;  - in_ContractName: String - 공사이름&#xA;&#xA; &#xA;Input/Output&#xA;  - io_ErrorList : List&lt;String&gt; - 오류 내용을 저장하는 리스트 &#xA;&#xA;Output&#xA;  - out_StatusMsg1: String - 기성 지급 &#xA;  - out_StatusMsg2: String - 선급금 지급 &#xA;" DisplayName="UpdateSubcontractPayment" sap:VirtualizedContainerService.HintSize="912.8,10136.8" sap2010:WorkflowViewState.IdRef="Sequence_2">
     <Sequence.Variables>
       <Variable x:TypeArguments="s:DateTime" Name="CurTime" />
     </Sequence.Variables>
@@ -83,13 +83,13 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="IE" DisplayName="Attach Browser - CWS 건설공사정보시스템에 연결" sap:VirtualizedContainerService.HintSize="889.6,9526.4" sap2010:WorkflowViewState.IdRef="BrowserScope_1" InformativeScreenshot="ef944f2b9e04f89dcc68f99a83950e47" Selector="&lt;html title='CWS 건설공사정보시스템' /&gt;">
+    <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="IE" DisplayName="Attach Browser - CWS 건설공사정보시스템에 연결" sap:VirtualizedContainerService.HintSize="890.4,9563.2" sap2010:WorkflowViewState.IdRef="BrowserScope_1" InformativeScreenshot="ef944f2b9e04f89dcc68f99a83950e47" Selector="&lt;html title='CWS 건설공사정보시스템' /&gt;">
       <ui:BrowserScope.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="875.2,9379.2" sap2010:WorkflowViewState.IdRef="Sequence_1">
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="876,9416" sap2010:WorkflowViewState.IdRef="Sequence_1">
             <Sequence.Variables>
               <Variable x:TypeArguments="sd:DataTable" Name="PaymentHistory" />
               <Variable x:TypeArguments="ui:UiElement" Name="UiCompanies" />
@@ -102,7 +102,7 @@
                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <Assign DisplayName="Assign - 해당탭 실행시간 계산용 " sap:VirtualizedContainerService.HintSize="852.8,60" sap2010:WorkflowViewState.IdRef="Assign_15">
+            <Assign DisplayName="Assign - 해당탭 실행시간 계산용 " sap:VirtualizedContainerService.HintSize="853.6,60" sap2010:WorkflowViewState.IdRef="Assign_15">
               <Assign.To>
                 <OutArgument x:TypeArguments="s:DateTime">[CurTime]</OutArgument>
               </Assign.To>
@@ -110,7 +110,7 @@
                 <InArgument x:TypeArguments="s:DateTime">[DateTime.Now]</InArgument>
               </Assign.Value>
             </Assign>
-            <Assign DisplayName="Assign - 기성 초기화 " sap:VirtualizedContainerService.HintSize="852.8,60" sap2010:WorkflowViewState.IdRef="Assign_10">
+            <Assign DisplayName="Assign - 기성 초기화 " sap:VirtualizedContainerService.HintSize="853.6,60" sap2010:WorkflowViewState.IdRef="Assign_10">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:String">[out_StatusMsg1]</OutArgument>
               </Assign.To>
@@ -118,7 +118,7 @@
                 <InArgument x:TypeArguments="x:String">[String.Empty]</InArgument>
               </Assign.Value>
             </Assign>
-            <Assign DisplayName="Assign - 선급금 초기화 " sap:VirtualizedContainerService.HintSize="852.8,60" sap2010:WorkflowViewState.IdRef="Assign_11">
+            <Assign DisplayName="Assign - 선급금 초기화 " sap:VirtualizedContainerService.HintSize="853.6,60" sap2010:WorkflowViewState.IdRef="Assign_11">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:String">[out_StatusMsg2]</OutArgument>
               </Assign.To>
@@ -126,7 +126,7 @@
                 <InArgument x:TypeArguments="x:String">[String.Empty]</InArgument>
               </Assign.Value>
             </Assign>
-            <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click - 하도급대금지급 선택" sap:VirtualizedContainerService.HintSize="852.8,107.2" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+            <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click - 하도급대금지급 선택" sap:VirtualizedContainerService.HintSize="853.6,107.2" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
               <ui:Click.CursorPosition>
                 <ui:CursorPosition Position="Center">
                   <ui:CursorPosition.OffsetX>
@@ -141,17 +141,17 @@
                 <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="f940a20358770a3bc44f6eabacdefe97" Selector="&lt;webctrl id='ctl00_CPL1_tab13' tag='LI' /&gt;" WaitForReady="INTERACTIVE" />
               </ui:Click.Target>
             </ui:Click>
-            <ui:ExtractData NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[PaymentHistory]" DelayBetweenPagesMS="300" DisplayName="Extract Structured Data - 기존지급내역 정보 " ExtractMetadata="&lt;extract-table get_columns_name='1' get_empty_columns='0' /&gt;" sap:VirtualizedContainerService.HintSize="852.8,107.2" sap2010:WorkflowViewState.IdRef="ExtractData_1" MaxNumberOfResults="0">
+            <ui:ExtractData NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[PaymentHistory]" DelayBetweenPagesMS="300" DisplayName="Extract Structured Data - 기존지급내역 정보 " ExtractMetadata="&lt;extract-table get_columns_name='1' get_empty_columns='0' /&gt;" sap:VirtualizedContainerService.HintSize="853.6,107.2" sap2010:WorkflowViewState.IdRef="ExtractData_1" MaxNumberOfResults="0">
               <ui:ExtractData.Target>
                 <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="53b83bdf6cacb9f4bd79dff3bcbd6a31" Selector="&lt;webctrl parentid='ctl00_CPL1_palAmtSubList' tag='TABLE' /&gt;" WaitForReady="COMPLETE" />
               </ui:ExtractData.Target>
             </ui:ExtractData>
-            <If Condition="[PaymentHistory is Nothing or PaymentHistory.Rows.Count = 0]" DisplayName="If - 기존 지급내역이 없다면 새로 빌드해야함 " sap:VirtualizedContainerService.HintSize="852.8,209.6" sap2010:WorkflowViewState.IdRef="If_13">
+            <If Condition="[PaymentHistory is Nothing or PaymentHistory.Rows.Count = 0]" DisplayName="If - 기존 지급내역이 없다면 새로 빌드해야함 " sap:VirtualizedContainerService.HintSize="853.6,209.6" sap2010:WorkflowViewState.IdRef="If_13">
               <If.Then>
                 <ui:BuildDataTable DataTable="[PaymentHistory]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="314.4,60" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;번호&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;하도급업체&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;구분&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;지급일&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;지급금액&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
               </If.Then>
             </If>
-            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="고객사 DB 데이터에 대해서 대해서 회사이름 정리 " DisplayName="Invoke NormalizeCompanyName workflow" sap:VirtualizedContainerService.HintSize="852.8,116" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="KISCON\NormalizeCompanyName.xaml">
+            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="고객사 DB 데이터에 대해서 대해서 회사이름 정리 " DisplayName="Invoke NormalizeCompanyName workflow" sap:VirtualizedContainerService.HintSize="853.6,116" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="KISCON\NormalizeCompanyName.xaml">
               <ui:InvokeWorkflowFile.Arguments>
                 <InArgument x:TypeArguments="sd:DataTable" x:Key="io_SubcontractInfo">[PaymentHistory]</InArgument>
                 <InArgument x:TypeArguments="x:Int32" x:Key="in_ColumnIndex">2</InArgument>
@@ -163,18 +163,18 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </ui:InvokeWorkflowFile>
-            <ui:WaitUiElementAppear DisplayName="Find Element - 하도급업체명" FoundElement="[UiCompanies]" sap:VirtualizedContainerService.HintSize="852.8,107.2" sap2010:WorkflowViewState.IdRef="WaitUiElementAppear_1" WaitActive="False" WaitVisible="False">
+            <ui:WaitUiElementAppear DisplayName="Find Element - 하도급업체명" FoundElement="[UiCompanies]" sap:VirtualizedContainerService.HintSize="853.6,107.2" sap2010:WorkflowViewState.IdRef="WaitUiElementAppear_1" WaitActive="False" WaitVisible="False">
               <ui:WaitUiElementAppear.Target>
                 <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="1b46e13692900cfc1b5f1012f4475a5a" Selector="&lt;webctrl id='ctl00_CPL1_sugubInfoList' tag='SELECT' /&gt;" WaitForReady="INTERACTIVE" />
               </ui:WaitUiElementAppear.Target>
             </ui:WaitUiElementAppear>
-            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke GetSelectOptions workflow" sap:VirtualizedContainerService.HintSize="852.8,88" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="KISCON\GetSelectOptions.xaml">
+            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke GetSelectOptions workflow" sap:VirtualizedContainerService.HintSize="853.6,88" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="KISCON\GetSelectOptions.xaml">
               <ui:InvokeWorkflowFile.Arguments>
                 <InArgument x:TypeArguments="ui:UiElement" x:Key="in_SelectElement">[UiCompanies]</InArgument>
                 <OutArgument x:TypeArguments="scg:List(x:String)" x:Key="out_Options">[Companies]</OutArgument>
               </ui:InvokeWorkflowFile.Arguments>
             </ui:InvokeWorkflowFile>
-            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="KISCON에 등록된 지급이력에 대해서 회사이름 정리 " DisplayName="Invoke NormalizeCompanyName workflow" sap:VirtualizedContainerService.HintSize="852.8,132" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="KISCON\NormalizeCompanyName.xaml">
+            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="KISCON에 등록된 지급이력에 대해서 회사이름 정리 " DisplayName="Invoke NormalizeCompanyName workflow" sap:VirtualizedContainerService.HintSize="853.6,132" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="KISCON\NormalizeCompanyName.xaml">
               <ui:InvokeWorkflowFile.Arguments>
                 <InArgument x:TypeArguments="sd:DataTable" x:Key="io_SubcontractInfo">[in_Payments]</InArgument>
                 <InArgument x:TypeArguments="x:Int32" x:Key="in_ColumnIndex">4</InArgument>
@@ -186,7 +186,7 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </ui:InvokeWorkflowFile>
-            <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[in_Payments]" DisplayName="For Each Row - 지급해야 할 항목에 대해서 기존 지급내역과 비교 " sap:VirtualizedContainerService.HintSize="852.8,1348" sap2010:WorkflowViewState.IdRef="ForEachRow_2">
+            <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[in_Payments]" DisplayName="For Each Row - 지급해야 할 항목에 대해서 기존 지급내역과 비교 " sap:VirtualizedContainerService.HintSize="853.6,1348" sap2010:WorkflowViewState.IdRef="ForEachRow_2">
               <ui:ForEachRow.Body>
                 <ActivityAction x:TypeArguments="sd:DataRow">
                   <ActivityAction.Argument>
@@ -302,13 +302,13 @@
                 </ActivityAction>
               </ui:ForEachRow.Body>
             </ui:ForEachRow>
-            <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[in_Payments]" DisplayName="For Each Row - 모든지급 내역에 대해서 " sap:VirtualizedContainerService.HintSize="852.8,6419.2" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+            <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[in_Payments]" DisplayName="For Each Row - 모든지급 내역에 대해서 " sap:VirtualizedContainerService.HintSize="853.6,6456" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
               <ui:ForEachRow.Body>
                 <ActivityAction x:TypeArguments="sd:DataRow">
                   <ActivityAction.Argument>
                     <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
                   </ActivityAction.Argument>
-                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="822.4,6270.4" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="823.2,6307.2" sap2010:WorkflowViewState.IdRef="Sequence_3">
                     <Sequence.Variables>
                       <Variable x:TypeArguments="x:String" Name="CompName" />
                       <Variable x:TypeArguments="x:Int32" Name="CntIndex" />
@@ -319,23 +319,23 @@
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <If Condition="[row(&quot;변경완료&quot;).ToString = &quot;Y&quot;]" DisplayName="If - 이미 입력된것으로 표시된 경우 중복입력 방지" sap:VirtualizedContainerService.HintSize="800,660.8" sap2010:WorkflowViewState.IdRef="If_8">
+                    <If Condition="[row(&quot;변경완료&quot;).ToString = &quot;Y&quot;]" DisplayName="If - 이미 입력된것으로 표시된 경우 중복입력 방지" sap:VirtualizedContainerService.HintSize="800.8,667.2" sap2010:WorkflowViewState.IdRef="If_8">
                       <If.Then>
-                        <Sequence sap:VirtualizedContainerService.HintSize="675,511" sap2010:WorkflowViewState.IdRef="Sequence_14">
+                        <Sequence sap:VirtualizedContainerService.HintSize="676,517.6" sap2010:WorkflowViewState.IdRef="Sequence_14">
                           <sap:WorkflowViewStateService.ViewState>
                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
                               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                             </scg:Dictionary>
                           </sap:WorkflowViewStateService.ViewState>
-                          <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="653,51" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+                          <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="653.6,52.8" sap2010:WorkflowViewState.IdRef="CommentOut_1">
                             <ui:CommentOut.Body>
-                              <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="336,215" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                              <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="336.8,217.6" sap2010:WorkflowViewState.IdRef="Sequence_16">
                                 <sap:WorkflowViewStateService.ViewState>
                                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                   </scg:Dictionary>
                                 </sap:WorkflowViewStateService.ViewState>
-                                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="314,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Trace" Message="[String.Format(&quot;하도급대금지급 - 기지급된 {0}&quot;, String.Join(&quot;, &quot;, row.ItemArray))]" />
+                                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="314.4,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Trace" Message="[String.Format(&quot;하도급대금지급 - 기지급된 {0}&quot;, String.Join(&quot;, &quot;, row.ItemArray))]" />
                               </Sequence>
                             </ui:CommentOut.Body>
                             <sap:WorkflowViewStateService.ViewState>
@@ -345,9 +345,9 @@
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
                           </ui:CommentOut>
-                          <If Condition="[row(&quot;대금구분&quot;).ToString = &quot;기성금&quot;]" DisplayName="If - 중복사항에 대해서 DB에 반영한것으로 처리  " sap:VirtualizedContainerService.HintSize="653,234" sap2010:WorkflowViewState.IdRef="If_15">
+                          <If Condition="[row(&quot;대금구분&quot;).ToString = &quot;기성금&quot;]" DisplayName="If - 중복사항에 대해서 DB에 반영한것으로 처리  " sap:VirtualizedContainerService.HintSize="653.6,237.6" sap2010:WorkflowViewState.IdRef="If_15">
                             <If.Then>
-                              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke UpdateSubcontractPayment-기성 workflow" sap:VirtualizedContainerService.HintSize="314,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_8" UnSafe="False" WorkflowFileName="Custom\UpdateSubcontractPayment.xaml">
+                              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke UpdateSubcontractPayment-기성 workflow" sap:VirtualizedContainerService.HintSize="314.4,88" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_8" UnSafe="False" WorkflowFileName="Custom\UpdateSubcontractPayment.xaml">
                                 <ui:InvokeWorkflowFile.Arguments>
                                   <InArgument x:TypeArguments="x:String" x:Key="in_ConnStr">[in_ConnStrDict("UpdateSubcontractPayment1").ToString]</InArgument>
                                   <InArgument x:TypeArguments="x:String" x:Key="in_Query">[in_QueryDict("UpdateSubcontractPayment1").ToString]</InArgument>
@@ -355,11 +355,12 @@
                                   <OutArgument x:TypeArguments="x:Int32" x:Key="out_Rows">[AfectedRows]</OutArgument>
                                   <InArgument x:TypeArguments="x:String" x:Key="in_OrdCode">[row("발주번호").ToString.Trim]</InArgument>
                                   <InArgument x:TypeArguments="x:String" x:Key="in_PaymentDate">[row("지급일").ToString.Trim]</InArgument>
+                                  <InArgument x:TypeArguments="x:String" x:Key="in_ProvName">[in_ConfigDict("DB_ProviderName").ToString]</InArgument>
                                 </ui:InvokeWorkflowFile.Arguments>
                               </ui:InvokeWorkflowFile>
                             </If.Then>
                             <If.Else>
-                              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke UpdateSubcontractPayment-선급금 workflow" sap:VirtualizedContainerService.HintSize="314,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_9" UnSafe="False" WorkflowFileName="Custom\UpdateSubcontractPayment.xaml">
+                              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke UpdateSubcontractPayment-선급금 workflow" sap:VirtualizedContainerService.HintSize="314.4,88" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_9" UnSafe="False" WorkflowFileName="Custom\UpdateSubcontractPayment.xaml">
                                 <ui:InvokeWorkflowFile.Arguments>
                                   <InArgument x:TypeArguments="x:String" x:Key="in_ConnStr">[in_ConnStrDict("UpdateSubcontractPayment2").ToString]</InArgument>
                                   <InArgument x:TypeArguments="x:String" x:Key="in_Query">[in_QueryDict("UpdateSubcontractPayment2").ToString]</InArgument>
@@ -367,15 +368,16 @@
                                   <OutArgument x:TypeArguments="x:Int32" x:Key="out_Rows">[AfectedRows]</OutArgument>
                                   <InArgument x:TypeArguments="x:String" x:Key="in_OrdCode">[row("발주번호").ToString.Trim]</InArgument>
                                   <InArgument x:TypeArguments="x:String" x:Key="in_PaymentDate">[row("지급일").ToString.Trim]</InArgument>
+                                  <InArgument x:TypeArguments="x:String" x:Key="in_ProvName">[in_ConfigDict("DB_ProviderName").ToString]</InArgument>
                                 </ui:InvokeWorkflowFile.Arguments>
                               </ui:InvokeWorkflowFile>
                             </If.Else>
                           </If>
-                          <ui:Continue sap:VirtualizedContainerService.HintSize="653,22" sap2010:WorkflowViewState.IdRef="Continue_3" />
+                          <ui:Continue sap:VirtualizedContainerService.HintSize="653.6,22.4" sap2010:WorkflowViewState.IdRef="Continue_3" />
                         </Sequence>
                       </If.Then>
                     </If>
-                    <Assign sap:VirtualizedContainerService.HintSize="800,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+                    <Assign sap:VirtualizedContainerService.HintSize="800.8,60" sap2010:WorkflowViewState.IdRef="Assign_1">
                       <Assign.To>
                         <OutArgument x:TypeArguments="x:String">[CompName]</OutArgument>
                       </Assign.To>
@@ -383,10 +385,10 @@
                         <InArgument x:TypeArguments="x:String">[row("하도급업체명").ToString]</InArgument>
                       </Assign.Value>
                     </Assign>
-                    <ui:LookupDataTable CellValue="{x:Null}" LookupColumnIndex="{x:Null}" LookupDataColumn="{x:Null}" TargetColumnIndex="{x:Null}" TargetColumnName="{x:Null}" TargetDataColumn="{x:Null}" DataTable="[in_Contracts]" DisplayName="Lookup Data Table" sap:VirtualizedContainerService.HintSize="800,22.4" sap2010:WorkflowViewState.IdRef="LookupDataTable_1" LookupColumnName="발주번호" LookupValue="[row(&quot;발주번호&quot;).ToString]" RowIndex="[CntIndex]" />
-                    <If Condition="[CntIndex &gt;= 0]" DisplayName="If - 하수급인 테이블에서 해당 공종이 있는지 비교 " sap:VirtualizedContainerService.HintSize="800,457.6" sap2010:WorkflowViewState.IdRef="If_6">
+                    <ui:LookupDataTable CellValue="{x:Null}" LookupColumnIndex="{x:Null}" LookupDataColumn="{x:Null}" TargetColumnIndex="{x:Null}" TargetColumnName="{x:Null}" TargetDataColumn="{x:Null}" DataTable="[in_Contracts]" DisplayName="Lookup Data Table" sap:VirtualizedContainerService.HintSize="800.8,22.4" sap2010:WorkflowViewState.IdRef="LookupDataTable_1" LookupColumnName="발주번호" LookupValue="[row(&quot;발주번호&quot;).ToString]" RowIndex="[CntIndex]" />
+                    <If Condition="[CntIndex &gt;= 0]" DisplayName="If - 하수급인 테이블에서 해당 공종이 있는지 비교 " sap:VirtualizedContainerService.HintSize="800.8,459.2" sap2010:WorkflowViewState.IdRef="If_6">
                       <If.Then>
-                        <Assign DisplayName="Assign - 공종값을 추출 " sap:VirtualizedContainerService.HintSize="242,60" sap2010:WorkflowViewState.IdRef="Assign_7">
+                        <Assign DisplayName="Assign - 공종값을 추출 " sap:VirtualizedContainerService.HintSize="243.2,60" sap2010:WorkflowViewState.IdRef="Assign_7">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:String">[CntCategory]</OutArgument>
                           </Assign.To>
@@ -396,7 +398,7 @@
                         </Assign>
                       </If.Then>
                       <If.Else>
-                        <Sequence DisplayName="Sequence - 처리하지 못한 내역 추가 " sap:VirtualizedContainerService.HintSize="264,308" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                        <Sequence DisplayName="Sequence - 처리하지 못한 내역 추가 " sap:VirtualizedContainerService.HintSize="265.6,309.6" sap2010:WorkflowViewState.IdRef="Sequence_9">
                           <Sequence.Variables>
                             <Variable x:TypeArguments="x:String" Name="TempMsg" />
                           </Sequence.Variables>
@@ -405,7 +407,7 @@
                               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                             </scg:Dictionary>
                           </sap:WorkflowViewStateService.ViewState>
-                          <Assign sap:VirtualizedContainerService.HintSize="242,60" sap2010:WorkflowViewState.IdRef="Assign_17">
+                          <Assign sap:VirtualizedContainerService.HintSize="243.2,60" sap2010:WorkflowViewState.IdRef="Assign_17">
                             <Assign.To>
                               <OutArgument x:TypeArguments="x:String">[TempMsg]</OutArgument>
                             </Assign.To>
@@ -413,12 +415,12 @@
                               <InArgument x:TypeArguments="x:String">[String.Format("하도급대금지급: 매칭되는 발주번호가 없음.. . {0} 오류로 처리 ", row("하도급업체명").ToString)]</InArgument>
                             </Assign.Value>
                           </Assign>
-                          <AddToCollection x:TypeArguments="x:String" Collection="[io_ErrorList]" DisplayName="Add To Collection" sap:VirtualizedContainerService.HintSize="242,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_1" Item="[TempMsg]" />
-                          <ui:Continue sap:VirtualizedContainerService.HintSize="242,22" sap2010:WorkflowViewState.IdRef="Continue_2" />
+                          <AddToCollection x:TypeArguments="x:String" Collection="[io_ErrorList]" DisplayName="Add To Collection" sap:VirtualizedContainerService.HintSize="243.2,22.4" sap2010:WorkflowViewState.IdRef="AddToCollection`1_1" Item="[TempMsg]" />
+                          <ui:Continue sap:VirtualizedContainerService.HintSize="243.2,22.4" sap2010:WorkflowViewState.IdRef="Continue_2" />
                         </Sequence>
                       </If.Else>
                     </If>
-                    <If Condition="[CompName.StartsWith(&quot;주식회사&quot;) Or CompName.EndsWith(&quot;주식회사&quot;)]" DisplayName="If - 주식회사 제거 " sap:VirtualizedContainerService.HintSize="800,209.6" sap2010:WorkflowViewState.IdRef="If_2">
+                    <If Condition="[CompName.StartsWith(&quot;주식회사&quot;) Or CompName.EndsWith(&quot;주식회사&quot;)]" DisplayName="If - 주식회사 제거 " sap:VirtualizedContainerService.HintSize="800.8,209.6" sap2010:WorkflowViewState.IdRef="If_2">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -426,7 +428,7 @@
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
                       <If.Then>
-                        <Assign sap:VirtualizedContainerService.HintSize="242,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+                        <Assign sap:VirtualizedContainerService.HintSize="243.2,60" sap2010:WorkflowViewState.IdRef="Assign_2">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:String">[CompName]</OutArgument>
                           </Assign.To>
@@ -436,7 +438,7 @@
                         </Assign>
                       </If.Then>
                     </If>
-                    <If Condition="[CompName.EndsWith(&quot;(주)&quot;) or CompName.StartsWith(&quot;(주)&quot;)]" DisplayName="If - (주) 제거 " sap:VirtualizedContainerService.HintSize="800,209.6" sap2010:WorkflowViewState.IdRef="If_3">
+                    <If Condition="[CompName.EndsWith(&quot;(주)&quot;) or CompName.StartsWith(&quot;(주)&quot;)]" DisplayName="If - (주) 제거 " sap:VirtualizedContainerService.HintSize="800.8,209.6" sap2010:WorkflowViewState.IdRef="If_3">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -444,7 +446,7 @@
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
                       <If.Then>
-                        <Assign sap:VirtualizedContainerService.HintSize="242,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+                        <Assign sap:VirtualizedContainerService.HintSize="243.2,60" sap2010:WorkflowViewState.IdRef="Assign_3">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:String">[CompName]</OutArgument>
                           </Assign.To>
@@ -454,7 +456,7 @@
                         </Assign>
                       </If.Then>
                     </If>
-                    <Sequence DisplayName="Sequence - 신규항목 반영 " sap:VirtualizedContainerService.HintSize="800,4285.6" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                    <Sequence DisplayName="Sequence - 신규항목 반영 " sap:VirtualizedContainerService.HintSize="800.8,4314.4" sap2010:WorkflowViewState.IdRef="Sequence_4">
                       <Sequence.Variables>
                         <Variable x:TypeArguments="x:Boolean" Name="IsMatchedCompany" />
                         <Variable x:TypeArguments="x:Boolean" Name="IsUpdateDate" />
@@ -465,8 +467,8 @@
                           <x:Boolean x:Key="IsPinned">False</x:Boolean>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
-                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="697,91" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[String.Format(&quot;{0} 하도급 대금지급 신규 항목 ... {0} &quot;, String.Join( &quot;, &quot;,  row.ItemArray), in_ContractName)]" />
-                      <Assign sap:VirtualizedContainerService.HintSize="697,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="698.4,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[String.Format(&quot;{0} 하도급 대금지급 신규 항목 ... {0} &quot;, String.Join( &quot;, &quot;,  row.ItemArray), in_ContractName)]" />
+                      <Assign sap:VirtualizedContainerService.HintSize="698.4,60" sap2010:WorkflowViewState.IdRef="Assign_4">
                         <Assign.To>
                           <OutArgument x:TypeArguments="x:Boolean">[IsMatchedCompany]</OutArgument>
                         </Assign.To>
@@ -474,13 +476,13 @@
                           <InArgument x:TypeArguments="x:Boolean">False</InArgument>
                         </Assign.Value>
                       </Assign>
-                      <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each  - 업체명과 공사종류 둘다 맞는지 비교 " sap:VirtualizedContainerService.HintSize="697,915" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[Companies]">
+                      <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each  - 업체명과 공사종류 둘다 맞는지 비교 " sap:VirtualizedContainerService.HintSize="698.4,924" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[Companies]">
                         <ui:ForEach.Body>
                           <ActivityAction x:TypeArguments="x:String">
                             <ActivityAction.Argument>
                               <DelegateInArgument x:TypeArguments="x:String" Name="item" />
                             </ActivityAction.Argument>
-                            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="486,782" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="486.4,789.6" sap2010:WorkflowViewState.IdRef="Sequence_7">
                               <Sequence.Variables>
                                 <Variable x:TypeArguments="s:String[]" Name="KNames" />
                               </Sequence.Variables>
@@ -489,15 +491,15 @@
                                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                 </scg:Dictionary>
                               </sap:WorkflowViewStateService.ViewState>
-                              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="464,51" sap2010:WorkflowViewState.IdRef="CommentOut_2">
+                              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="464,52.8" sap2010:WorkflowViewState.IdRef="CommentOut_2">
                                 <ui:CommentOut.Body>
-                                  <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="336,215" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                                  <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="336.8,217.6" sap2010:WorkflowViewState.IdRef="Sequence_17">
                                     <sap:WorkflowViewStateService.ViewState>
                                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                       </scg:Dictionary>
                                     </sap:WorkflowViewStateService.ViewState>
-                                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="314,91" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Trace" Message="[String.Format(&quot;선택지:{0}   회사이름:{1} 공종: {2}&quot;, item, CompName, CntCategory)]" />
+                                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="314.4,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Trace" Message="[String.Format(&quot;선택지:{0}   회사이름:{1} 공종: {2}&quot;, item, CompName, CntCategory)]" />
                                   </Sequence>
                                 </ui:CommentOut.Body>
                                 <sap:WorkflowViewStateService.ViewState>
@@ -507,15 +509,15 @@
                                   </scg:Dictionary>
                                 </sap:WorkflowViewStateService.ViewState>
                               </ui:CommentOut>
-                              <If Condition="[item.Contains( CompName ) AndAlso item.Contains( CntCategory )]" DisplayName="If - 표준화된 업체명 과 공종이 있는지 체크 " sap:VirtualizedContainerService.HintSize="464,567" sap2010:WorkflowViewState.IdRef="If_4">
+                              <If Condition="[item.Contains( CompName ) AndAlso item.Contains( CntCategory )]" DisplayName="If - 표준화된 업체명 과 공종이 있는지 체크 " sap:VirtualizedContainerService.HintSize="464,572" sap2010:WorkflowViewState.IdRef="If_4">
                                 <If.Then>
-                                  <Sequence sap:VirtualizedContainerService.HintSize="336,420" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                                  <Sequence sap:VirtualizedContainerService.HintSize="336.8,422.4" sap2010:WorkflowViewState.IdRef="Sequence_8">
                                     <sap:WorkflowViewStateService.ViewState>
                                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                       </scg:Dictionary>
                                     </sap:WorkflowViewStateService.ViewState>
-                                    <ui:SelectItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Item - 하도급업체 선택 " sap:VirtualizedContainerService.HintSize="314,134" sap2010:WorkflowViewState.IdRef="SelectItem_1" Item="[item.Trim]">
+                                    <ui:SelectItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Item - 하도급업체 선택 " sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="SelectItem_1" Item="[item.Trim]">
                                       <ui:SelectItem.Items>
                                         <scg:List x:TypeArguments="x:String" Capacity="8">
                                           <x:String>선택하세요</x:String>
@@ -531,7 +533,7 @@
                                         <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="0e98b2c45c4cbd30e61d793ac22e6c96" Selector="&lt;webctrl id='ctl00_CPL1_sugubInfoList' tag='SELECT' /&gt;" WaitForReady="INTERACTIVE" />
                                       </ui:SelectItem.Target>
                                     </ui:SelectItem>
-                                    <Assign sap:VirtualizedContainerService.HintSize="314,60" sap2010:WorkflowViewState.IdRef="Assign_5">
+                                    <Assign sap:VirtualizedContainerService.HintSize="314.4,60" sap2010:WorkflowViewState.IdRef="Assign_5">
                                       <Assign.To>
                                         <OutArgument x:TypeArguments="x:Boolean">[IsMatchedCompany]</OutArgument>
                                       </Assign.To>
@@ -539,7 +541,7 @@
                                         <InArgument x:TypeArguments="x:Boolean">True</InArgument>
                                       </Assign.Value>
                                     </Assign>
-                                    <ui:Break sap:VirtualizedContainerService.HintSize="314,22" sap2010:WorkflowViewState.IdRef="Break_1" />
+                                    <ui:Break sap:VirtualizedContainerService.HintSize="314.4,22.4" sap2010:WorkflowViewState.IdRef="Break_1" />
                                   </Sequence>
                                 </If.Then>
                               </If>
@@ -553,7 +555,7 @@
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
                       </ui:ForEach>
-                      <If Condition="[Not IsMatchedCompany]" DisplayName="If - 맞는 업체가 있는지 판단" sap:VirtualizedContainerService.HintSize="697,455" sap2010:WorkflowViewState.IdRef="If_5">
+                      <If Condition="[Not IsMatchedCompany]" DisplayName="If - 맞는 업체가 있는지 판단" sap:VirtualizedContainerService.HintSize="698.4,459.2" sap2010:WorkflowViewState.IdRef="If_5">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -561,7 +563,7 @@
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
                         <If.Then>
-                          <Sequence sap:VirtualizedContainerService.HintSize="264,308" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                          <Sequence sap:VirtualizedContainerService.HintSize="265.6,309.6" sap2010:WorkflowViewState.IdRef="Sequence_15">
                             <Sequence.Variables>
                               <Variable x:TypeArguments="ui:GenericValue" Name="TempErrMsg" />
                             </Sequence.Variables>
@@ -570,7 +572,7 @@
                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
-                            <Assign DisplayName="Assign - 오류 메세지 " sap:VirtualizedContainerService.HintSize="242,60" sap2010:WorkflowViewState.IdRef="Assign_19">
+                            <Assign DisplayName="Assign - 오류 메세지 " sap:VirtualizedContainerService.HintSize="243.2,60" sap2010:WorkflowViewState.IdRef="Assign_19">
                               <Assign.To>
                                 <OutArgument x:TypeArguments="ui:GenericValue">[TempErrMsg]</OutArgument>
                               </Assign.To>
@@ -578,30 +580,30 @@
                                 <InArgument x:TypeArguments="ui:GenericValue">[String.Format( "{0} 과 공종으로 맞는 항목이 없음 ...", row("하도급업체명").ToString)]</InArgument>
                               </Assign.Value>
                             </Assign>
-                            <AddToCollection x:TypeArguments="x:String" Collection="[io_ErrorList]" DisplayName="Add To Collection" sap:VirtualizedContainerService.HintSize="242,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_2" Item="[TempErrMsg]" />
-                            <ui:Continue sap:VirtualizedContainerService.HintSize="242,22" sap2010:WorkflowViewState.IdRef="Continue_1" />
+                            <AddToCollection x:TypeArguments="x:String" Collection="[io_ErrorList]" DisplayName="Add To Collection" sap:VirtualizedContainerService.HintSize="243.2,22.4" sap2010:WorkflowViewState.IdRef="AddToCollection`1_2" Item="[TempErrMsg]" />
+                            <ui:Continue sap:VirtualizedContainerService.HintSize="243.2,22.4" sap2010:WorkflowViewState.IdRef="Continue_1" />
                           </Sequence>
                         </If.Then>
                       </If>
-                      <ui:UiElementExists DisplayName="Element Exists - 내역 존재 여부 체크 후 진행 " Exists="[IsUpdateDate]" sap:VirtualizedContainerService.HintSize="697,106" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
+                      <ui:UiElementExists DisplayName="Element Exists - 내역 존재 여부 체크 후 진행 " Exists="[IsUpdateDate]" sap:VirtualizedContainerService.HintSize="698.4,107.2" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
                         <ui:UiElementExists.Target>
                           <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="02d1fe3a80a3bac51262b5f852c0d279" Selector="&lt;webctrl parentid='ctl00_CPL1_pal01' tag='H6' /&gt;" TimeoutMS="3000" WaitForReady="INTERACTIVE" />
                         </ui:UiElementExists.Target>
                       </ui:UiElementExists>
-                      <If Condition="[IsUpdateDate]" DisplayName="If - 변경내역이  있는 경우만 처리 " sap:VirtualizedContainerService.HintSize="697,579" sap2010:WorkflowViewState.IdRef="If_9">
+                      <If Condition="[IsUpdateDate]" DisplayName="If - 변경내역이  있는 경우만 처리 " sap:VirtualizedContainerService.HintSize="698.4,584.8" sap2010:WorkflowViewState.IdRef="If_9">
                         <If.Then>
-                          <Sequence sap:VirtualizedContainerService.HintSize="336,432" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                          <Sequence sap:VirtualizedContainerService.HintSize="336.8,435.2" sap2010:WorkflowViewState.IdRef="Sequence_11">
                             <sap:WorkflowViewStateService.ViewState>
                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
-                            <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into - 변경일자 입력 " EmptyField="True" sap:VirtualizedContainerService.HintSize="314,134" sap2010:WorkflowViewState.IdRef="TypeInto_1" SendWindowMessages="True" SimulateType="False" Text="[row(&quot;수정일&quot;).ToString]">
+                            <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into - 변경일자 입력 " EmptyField="True" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_1" SendWindowMessages="True" SimulateType="False" Text="[row(&quot;수정일&quot;).ToString]">
                               <ui:TypeInto.Target>
                                 <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="aef31a93c57328997dfbc7243819e923" Selector="&lt;webctrl id='ctl00_CPL1_txtchagedate' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
                               </ui:TypeInto.Target>
                             </ui:TypeInto>
-                            <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into - 변경사유 " EmptyField="True" sap:VirtualizedContainerService.HintSize="314,134" sap2010:WorkflowViewState.IdRef="TypeInto_2" SendWindowMessages="False" SimulateType="True" Text="하도급대금지급">
+                            <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into - 변경사유 " EmptyField="True" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_2" SendWindowMessages="False" SimulateType="True" Text="하도급대금지급">
                               <ui:TypeInto.Target>
                                 <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="820432925ef1e41eed22e65bd1282835" Selector="&lt;webctrl id='ctl00_CPL1_txtchgreason' tag='TEXTAREA' /&gt;" WaitForReady="INTERACTIVE" />
                               </ui:TypeInto.Target>
@@ -609,7 +611,7 @@
                           </Sequence>
                         </If.Then>
                       </If>
-                      <If Condition="[row(&quot;대금구분&quot;).ToString = &quot;기성금&quot;]" DisplayName="If - 선지급여부 및 대금구분 체크 " sap:VirtualizedContainerService.HintSize="697,797" sap2010:WorkflowViewState.IdRef="If_1">
+                      <If Condition="[row(&quot;대금구분&quot;).ToString = &quot;기성금&quot;]" DisplayName="If - 선지급여부 및 대금구분 체크 " sap:VirtualizedContainerService.HintSize="698.4,804" sap2010:WorkflowViewState.IdRef="If_1">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -617,13 +619,13 @@
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
                         <If.Then>
-                          <Sequence sap:VirtualizedContainerService.HintSize="336,476" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                          <Sequence sap:VirtualizedContainerService.HintSize="336.8,479.2" sap2010:WorkflowViewState.IdRef="Sequence_5">
                             <sap:WorkflowViewStateService.ViewState>
                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
-                            <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click - 선지급 선택 " sap:VirtualizedContainerService.HintSize="314,106" sap2010:WorkflowViewState.IdRef="Click_2" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                            <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click - 선지급 선택 " sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="Click_2" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
                               <ui:Click.CursorPosition>
                                 <ui:CursorPosition Position="Center">
                                   <ui:CursorPosition.OffsetX>
@@ -638,7 +640,7 @@
                                 <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="d076e46c19aa921a03b1b7c074bf9c6f" Selector="&lt;webctrl aaname='선지급' parentid='ctl00_CPL1_UpdatePanel2' tag='LABEL' /&gt;" WaitForReady="INTERACTIVE" />
                               </ui:Click.Target>
                             </ui:Click>
-                            <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click - 기성금 선택" sap:VirtualizedContainerService.HintSize="314,106" sap2010:WorkflowViewState.IdRef="Click_3" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                            <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click - 기성금 선택" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="Click_3" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
                               <ui:Click.CursorPosition>
                                 <ui:CursorPosition Position="Center">
                                   <ui:CursorPosition.OffsetX>
@@ -653,7 +655,7 @@
                                 <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="f3574b37e7acb0710b386962af1ebc93" Selector="&lt;webctrl aaname='기성금' parentid='ctl00_CPL1_UP2' tag='LABEL' /&gt;" WaitForReady="INTERACTIVE" />
                               </ui:Click.Target>
                             </ui:Click>
-                            <Assign DisplayName="Assign - 기성 지급 " sap:VirtualizedContainerService.HintSize="314,60" sap2010:WorkflowViewState.IdRef="Assign_12">
+                            <Assign DisplayName="Assign - 기성 지급 " sap:VirtualizedContainerService.HintSize="314.4,60" sap2010:WorkflowViewState.IdRef="Assign_12">
                               <Assign.To>
                                 <OutArgument x:TypeArguments="x:String">[out_StatusMsg1]</OutArgument>
                               </Assign.To>
@@ -664,13 +666,13 @@
                           </Sequence>
                         </If.Then>
                         <If.Else>
-                          <Sequence sap:VirtualizedContainerService.HintSize="336,650" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                          <Sequence sap:VirtualizedContainerService.HintSize="336.8,654.4" sap2010:WorkflowViewState.IdRef="Sequence_6">
                             <sap:WorkflowViewStateService.ViewState>
                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
-                            <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click - 공사대금 수령 후 지급" sap:VirtualizedContainerService.HintSize="314,106" sap2010:WorkflowViewState.IdRef="Click_4" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                            <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click - 공사대금 수령 후 지급" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="Click_4" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
                               <ui:Click.CursorPosition>
                                 <ui:CursorPosition Position="Center">
                                   <ui:CursorPosition.OffsetX>
@@ -685,12 +687,12 @@
                                 <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="e5821e42b5c086f9ed54b49e21e4c7bb" Selector="&lt;webctrl aaname='원도급사에서 공사대금 수령 후 지급' parentid='ctl00_CPL1_UpdatePanel2' tag='LABEL' /&gt;" WaitForReady="INTERACTIVE" />
                               </ui:Click.Target>
                             </ui:Click>
-                            <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into - 원도급대금수령일 입력 " EmptyField="True" sap:VirtualizedContainerService.HintSize="314,134" sap2010:WorkflowViewState.IdRef="TypeInto_7" SendWindowMessages="False" SimulateType="True" Text="[row(&quot;원도급대금수령일&quot;).ToString]">
+                            <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into - 원도급대금수령일 입력 " EmptyField="True" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_7" SendWindowMessages="False" SimulateType="True" Text="[row(&quot;원도급대금수령일&quot;).ToString]">
                               <ui:TypeInto.Target>
                                 <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="8ba6bf8d03a598ab94f80afae5c0c4c1" Selector="&lt;webctrl id='ctl00_CPL1_wonRecDate' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
                               </ui:TypeInto.Target>
                             </ui:TypeInto>
-                            <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click - 선급금 선택" sap:VirtualizedContainerService.HintSize="314,106" sap2010:WorkflowViewState.IdRef="Click_5" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                            <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click - 선급금 선택" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="Click_5" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
                               <ui:Click.CursorPosition>
                                 <ui:CursorPosition Position="Center">
                                   <ui:CursorPosition.OffsetX>
@@ -705,7 +707,7 @@
                                 <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="e1e3bd4f8aae796fc1dd60ff8291df94" Selector="&lt;webctrl aaname='선급금' parentid='ctl00_CPL1_UP2' tag='LABEL' /&gt;" WaitForReady="INTERACTIVE" />
                               </ui:Click.Target>
                             </ui:Click>
-                            <Assign DisplayName="Assign - 선급금지급 " sap:VirtualizedContainerService.HintSize="314,60" sap2010:WorkflowViewState.IdRef="Assign_13">
+                            <Assign DisplayName="Assign - 선급금지급 " sap:VirtualizedContainerService.HintSize="314.4,60" sap2010:WorkflowViewState.IdRef="Assign_13">
                               <Assign.To>
                                 <OutArgument x:TypeArguments="x:String">[out_StatusMsg2]</OutArgument>
                               </Assign.To>
@@ -716,7 +718,7 @@
                           </Sequence>
                         </If.Else>
                       </If>
-                      <Delay mva:VisualBasic.Settings="{x:Null}" DisplayName="Delay 500 milliseconds" Duration="00:00:00.5000000" sap:VirtualizedContainerService.HintSize="697,22" sap2010:WorkflowViewState.IdRef="Delay_1">
+                      <Delay mva:VisualBasic.Settings="{x:Null}" DisplayName="Delay 500 milliseconds" Duration="00:00:00.5000000" sap:VirtualizedContainerService.HintSize="698.4,22.4" sap2010:WorkflowViewState.IdRef="Delay_1">
                         <TextExpression.Namespaces>
                           <sco:Collection x:TypeArguments="x:String">
                             <x:String>System.Activities</x:String>
@@ -757,12 +759,12 @@
                           </sco:Collection>
                         </TextExpression.References>
                       </Delay>
-                      <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="True" DisplayName="Type Into - 지급일" EmptyField="True" sap:VirtualizedContainerService.HintSize="696.8,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_3" SendWindowMessages="True" SimulateType="False" Text="[row(&quot;지급일&quot;).ToString]">
+                      <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="True" DisplayName="Type Into - 지급일" EmptyField="True" sap:VirtualizedContainerService.HintSize="698.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_3" SendWindowMessages="True" SimulateType="False" Text="[row(&quot;지급일&quot;).ToString]">
                         <ui:TypeInto.Target>
                           <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="67902b35e2c866513c42bf4fbd6870bb" Selector="&lt;webctrl id='ctl00_CPL1_recDate' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
                         </ui:TypeInto.Target>
                       </ui:TypeInto>
-                      <If Condition="[row(&quot;대금&quot;).ToString = &quot;현금&quot;]" DisplayName="If - 현금/어음/기타 파악 " sap:VirtualizedContainerService.HintSize="696.8,52.8" sap2010:WorkflowViewState.IdRef="If_11">
+                      <If Condition="[row(&quot;대금&quot;).ToString = &quot;현금&quot;]" DisplayName="If - 현금/어음/기타 파악 " sap:VirtualizedContainerService.HintSize="698.4,52.8" sap2010:WorkflowViewState.IdRef="If_11">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -802,7 +804,7 @@
                           </Sequence>
                         </If.Else>
                       </If>
-                      <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click - 저장 클릭" sap:VirtualizedContainerService.HintSize="696.8,107.2" sap2010:WorkflowViewState.IdRef="Click_6" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                      <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click - 저장 클릭" sap:VirtualizedContainerService.HintSize="698.4,107.2" sap2010:WorkflowViewState.IdRef="Click_6" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
                         <ui:Click.CursorPosition>
                           <ui:CursorPosition Position="Center">
                             <ui:CursorPosition.OffsetX>
@@ -817,7 +819,7 @@
                           <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="ea4ada6b15cd7714c2369f140216d3a1" Selector="&lt;webctrl id='ctl00_CPL1_save_data' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
                         </ui:Click.Target>
                       </ui:Click>
-                      <Assign DisplayName="Assign - 변경완료 세팅" sap:VirtualizedContainerService.HintSize="696.8,60" sap2010:WorkflowViewState.IdRef="Assign_6">
+                      <Assign DisplayName="Assign - 변경완료 세팅" sap:VirtualizedContainerService.HintSize="698.4,60" sap2010:WorkflowViewState.IdRef="Assign_6">
                         <Assign.To>
                           <OutArgument x:TypeArguments="x:Object">[row("변경완료")]</OutArgument>
                         </Assign.To>
@@ -825,7 +827,7 @@
                           <InArgument x:TypeArguments="x:Object">["Y"]</InArgument>
                         </Assign.Value>
                       </Assign>
-                      <If Condition="[row(&quot;대금구분&quot;).ToString = &quot;기성금&quot;]" DisplayName="If - 개별건에 대한 변경 적용 " sap:VirtualizedContainerService.HintSize="696.8,237.6" sap2010:WorkflowViewState.IdRef="If_14">
+                      <If Condition="[row(&quot;대금구분&quot;).ToString = &quot;기성금&quot;]" DisplayName="If - 개별건에 대한 변경 적용 " sap:VirtualizedContainerService.HintSize="698.4,237.6" sap2010:WorkflowViewState.IdRef="If_14">
                         <If.Then>
                           <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke UpdateSubcontractPayment-기성 workflow" sap:VirtualizedContainerService.HintSize="314.4,88" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="Custom\UpdateSubcontractPayment.xaml">
                             <ui:InvokeWorkflowFile.Arguments>
@@ -853,7 +855,7 @@
                           </ui:InvokeWorkflowFile>
                         </If.Else>
                       </If>
-                      <Delay mva:VisualBasic.Settings="{x:Null}" DisplayName="Delay 1 second" Duration="00:00:01" sap:VirtualizedContainerService.HintSize="696.8,22.4" sap2010:WorkflowViewState.IdRef="Delay_2">
+                      <Delay mva:VisualBasic.Settings="{x:Null}" DisplayName="Delay 1 second" Duration="00:00:01" sap:VirtualizedContainerService.HintSize="698.4,22.4" sap2010:WorkflowViewState.IdRef="Delay_2">
                         <TextExpression.Namespaces>
                           <sco:Collection x:TypeArguments="x:String">
                             <x:String>System.Activities</x:String>
